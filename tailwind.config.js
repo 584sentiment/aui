@@ -43,8 +43,10 @@ export default {
         'strong': '0 8px 24px rgba(0, 0, 0, 0.12)'
       },
       zIndex: {
-        'dropdown': '50',
-        'modal': '100',
+        'base': '0',
+        'dropdown': '100',
+        'popover': '125',
+        'modal': '150',
         'toast': '200'
       }
     }

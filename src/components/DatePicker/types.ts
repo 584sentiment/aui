@@ -13,12 +13,14 @@ export interface DatePickerProps {
   label?: string
   name?: string
   format?: string
-  minDate?: Date
-  maxDate?: Date
+  minDate?: Date | string
+  maxDate?: Date | string
   disabledDates?: Date[]
+  showShortcuts?: boolean
+  showClearButton?: boolean
 }
 
 export interface DatePickerEmits {
-  'update:modelValue': [value: Date | string | undefined]
-  change: [value: Date | string | undefined]
+  'update:modelValue': [value: Date | undefined]
+  change: [value: Date | undefined]
 }
