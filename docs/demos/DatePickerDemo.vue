@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import DatePicker from '@job-ai/components'
+import { DatePicker } from '@job-ai/components'
 
 const date1 = ref()
 const date2 = ref()
