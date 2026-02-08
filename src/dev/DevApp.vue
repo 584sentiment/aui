@@ -148,7 +148,7 @@
           <h4 class="text-lg font-medium text-text mb-4">Modal 对话框</h4>
           <div class="space-y-4">
             <Button @click="modalOpen = true" variant="primary">打开对话框</Button>
-            <Button @click="confirmModalOpen = true" variant="secondary">打开确认对话框</Button>
+            <Button @click="confirmModalOpen = true" variant="secondary" class="ml-2">打开确认对话框</Button>
 
             <div class="text-sm text-text-secondary">
               对话框状态: {{ modalOpen ? '打开' : '关闭' }}

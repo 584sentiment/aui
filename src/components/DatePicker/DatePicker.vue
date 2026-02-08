@@ -1,5 +1,5 @@
 <template>
-  <div class="date-picker-wrapper">
+  <div class="date-picker-wrapper relative">
     <label v-if="label" :for="datePickerId" class="block text-sm font-medium text-text mb-1">
       {{ label }}
     </label>
@@ -49,7 +49,7 @@
     >
       <div
         v-if="isOpen"
-        class="absolute z-[200] mt-2 w-full sm:w-80 rounded-lg bg-surface shadow-medium border border-border"
+        class="absolute z-[130] mt-2 w-full sm:w-80 rounded-lg bg-surface shadow-medium border border-border"
         @click.outside="closePopover"
       >
         <!-- 日历头部：年月导航 -->

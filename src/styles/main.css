@@ -18,11 +18,9 @@
 }
 
 @layer components {
-  /* 玻璃态效果 */
+  /* 玻璃态效果（半透明背景） */
   .glass-card {
-    @apply bg-surface rounded-xl shadow-soft;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    @apply bg-surface/95 rounded-xl shadow-soft;
   }
 
   /* 按钮基础样式 */
