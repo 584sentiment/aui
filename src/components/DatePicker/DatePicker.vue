@@ -50,7 +50,6 @@
       <div
         v-if="isOpen"
         class="absolute z-[130] mt-2 w-full sm:w-80 rounded-lg bg-surface shadow-medium border border-border"
-        @click.outside="closePopover"
       >
         <!-- 日视图 -->
         <template v-if="viewMode === 'days'">
@@ -170,7 +169,7 @@
               class="text-base font-semibold text-text hover:text-primary transition-colors"
               @click="viewMode = 'years'"
             >
-              {{ currentYear.value }}年
+              {{ currentYear }}年
             </button>
 
             <button

@@ -347,4 +347,181 @@ test.describe('DatePicker 组件优化测试', () => {
 
     await page.screenshot({ path: 'test-results/datepicker-animation.png' })
   })
+
+  test('DatePicker 应该支持切换到月份选择视图', async ({ page }) => {
+    await page.goto('http://localhost:3002')
+    await page.waitForLoadState('networkidle')
+
+    // 滚动到 DatePicker
+    await page.evaluate(() => {
+      const datePicker = document.querySelector('.date-picker-wrapper')
+      if (datePicker) {
+        datePicker.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+
+    await page.waitForTimeout(500)
+
+    // 打开日历
+    const datePickerInput = page.locator('.date-picker-wrapper button').first()
+    await datePickerInput.click()
+    await page.waitForTimeout(300)
+
+    // 点击年月显示切换到月份视图
+    const yearMonthButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearMonthButton.click()
+    await page.waitForTimeout(300)
+
+    // 验证月份视图已显示（应该有12个月份按钮）
+    const monthButtons = page.locator('.grid-cols-3 button:has-text("月")')
+    const count = await monthButtons.count()
+    expect(count).toBe(12)
+
+    await page.screenshot({ path: 'test-results/datepicker-month-view.png' })
+  })
+
+  test('DatePicker 应该支持选择月份', async ({ page }) => {
+    await page.goto('http://localhost:3002')
+    await page.waitForLoadState('networkidle')
+
+    // 滚动到 DatePicker
+    await page.evaluate(() => {
+      const datePicker = document.querySelector('.date-picker-wrapper')
+      if (datePicker) {
+        datePicker.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+
+    await page.waitForTimeout(500)
+
+    // 打开日历并切换到月份视图
+    const datePickerInput = page.locator('.date-picker-wrapper button').first()
+    await datePickerInput.click()
+    await page.waitForTimeout(300)
+
+    const yearMonthButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearMonthButton.click()
+    await page.waitForTimeout(300)
+
+    // 选择6月
+    const juneButton = page.locator('.grid-cols-3 button:has-text("6月")').first()
+    await juneButton.click()
+    await page.waitForTimeout(300)
+
+    // 验证返回到日视图，且年月显示已更新
+    const currentYearMonth = await page.locator('.text-base.font-semibold').first().textContent()
+    expect(currentYearMonth).toContain('6月')
+
+    await page.screenshot({ path: 'test-results/datepicker-select-month.png' })
+  })
+
+  test('DatePicker 应该支持切换到年份选择视图', async ({ page }) => {
+    await page.goto('http://localhost:3002')
+    await page.waitForLoadState('networkidle')
+
+    // 滚动到 DatePicker
+    await page.evaluate(() => {
+      const datePicker = document.querySelector('.date-picker-wrapper')
+      if (datePicker) {
+        datePicker.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+
+    await page.waitForTimeout(500)
+
+    // 打开日历并切换到月份视图
+    const datePickerInput = page.locator('.date-picker-wrapper button').first()
+    await datePickerInput.click()
+    await page.waitForTimeout(300)
+
+    const yearMonthButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearMonthButton.click()
+    await page.waitForTimeout(300)
+
+    // 点击年份切换到年份视图
+    const yearButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearButton.click()
+    await page.waitForTimeout(300)
+
+    // 验证年份视图已显示（应该有12年）
+    const yearButtons = page.locator('.grid-cols-3 button.px-4.py-3')
+    const count = await yearButtons.count()
+    expect(count).toBe(12)
+
+    await page.screenshot({ path: 'test-results/datepicker-year-view.png' })
+  })
+
+  test('DatePicker 应该支持选择年份', async ({ page }) => {
+    await page.goto('http://localhost:3002')
+    await page.waitForLoadState('networkidle')
+
+    // 滚动到 DatePicker
+    await page.evaluate(() => {
+      const datePicker = document.querySelector('.date-picker-wrapper')
+      if (datePicker) {
+        datePicker.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+
+    await page.waitForTimeout(500)
+
+    // 打开日历并切换到年份视图
+    const datePickerInput = page.locator('.date-picker-wrapper button').first()
+    await datePickerInput.click()
+    await page.waitForTimeout(300)
+
+    const yearMonthButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearMonthButton.click()
+    await page.waitForTimeout(300)
+
+    const yearButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearButton.click()
+    await page.waitForTimeout(300)
+
+    // 选择2025年
+    const year2025Button = page.locator('.grid-cols-3 button:has-text("2025")').first()
+    await year2025Button.click()
+    await page.waitForTimeout(300)
+
+    // 验证返回到月份视图，且年份显示已更新
+    const currentYear = await page.locator('.text-base.font-semibold').first().textContent()
+    expect(currentYear).toContain('2025')
+
+    await page.screenshot({ path: 'test-results/datepicker-select-year.png' })
+  })
+
+  test('DatePicker 应该支持返回按钮', async ({ page }) => {
+    await page.goto('http://localhost:3002')
+    await page.waitForLoadState('networkidle')
+
+    // 滚动到 DatePicker
+    await page.evaluate(() => {
+      const datePicker = document.querySelector('.date-picker-wrapper')
+      if (datePicker) {
+        datePicker.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+
+    await page.waitForTimeout(500)
+
+    // 打开日历并切换到月份视图
+    const datePickerInput = page.locator('.date-picker-wrapper button').first()
+    await datePickerInput.click()
+    await page.waitForTimeout(300)
+
+    const yearMonthButton = page.locator('.text-base.font-semibold:has-text("年")').first()
+    await yearMonthButton.click()
+    await page.waitForTimeout(300)
+
+    // 点击返回日视图按钮
+    const backButton = page.locator('button:has-text("返回日视图")').first()
+    await backButton.click()
+    await page.waitForTimeout(300)
+
+    // 验证返回到日视图（应该能看到星期标题）
+    const weekDays = page.locator('.grid-cols-7 .text-xs.font-medium')
+    await expect(weekDays).toHaveCount(7)
+
+    await page.screenshot({ path: 'test-results/datepicker-back-button.png' })
+  })
 })
