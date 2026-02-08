@@ -229,6 +229,54 @@
             />
           </div>
         </Teleport>
+
+        <!-- Message 演示 -->
+        <div class="glass-card p-6 mt-6">
+          <h4 class="text-lg font-medium text-text mb-4">Message 消息通知</h4>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showMessage('success')" variant="primary">显示成功 Message</Button>
+              <Button @click="showMessage('error')" variant="danger">显示错误 Message</Button>
+              <Button @click="showMessage('warning')" variant="outline">显示警告 Message</Button>
+              <Button @click="showMessage('info')" variant="secondary">显示信息 Message</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showMessage('success', 2000)" variant="primary" size="sm">显示 Message (2秒)</Button>
+              <Button @click="showMessage('error', 0)" variant="danger" size="sm">显示 Message (手动关闭)</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showMessage('success', 3000, true)" variant="outline" size="sm">显示 Message 居中</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showMessage('success', 3000, false)" variant="primary" size="sm">显示 Message 带标题</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showMultipleMessages" variant="secondary">显示多个 Message</Button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message 容器 -->
+        <Teleport to="body">
+          <div class="message-container">
+            <Message
+              v-for="message in messages"
+              :key="message.id"
+              :type="message.type"
+              :title="message.title"
+              :message="message.message"
+              :duration="message.duration"
+              :closable="message.closable"
+              :show-icon="message.showIcon"
+              :center="message.center"
+              @close="removeMessage(message.id)"
+            />
+          </div>
+        </Teleport>
       </section>
 
       <!-- 导航组件 -->
@@ -379,7 +427,9 @@ import Pagination from '../components/Pagination/Pagination.vue'
 import Timeline from '../components/Timeline/Timeline.vue'
 import DatePicker from '../components/DatePicker/DatePicker.vue'
 import Toast from '../components/Toast/Toast.vue'
+import Message from '../components/Message/Message.vue'
 import type { ToastType, ToastPosition } from '../components/Toast/types'
+import type { MessageType } from '../components/Message/types'
 
 // 状态
 const isLoading = ref(false)
@@ -403,6 +453,19 @@ const toasts = ref<Array<{
   position: ToastPosition
 }>>([])
 let toastId = 0
+
+// Message 状态
+const messages = ref<Array<{
+  id: number
+  type: MessageType
+  title: string
+  message: string
+  duration: number
+  closable: boolean
+  showIcon: boolean
+  center: boolean
+}>>([])
+let messageId = 0
 
 // 表单数据
 const formData = reactive({
@@ -559,6 +622,46 @@ const showMultipleToasts = () => {
   setTimeout(() => showToast('warning', 3000, 'top-right'), 1000)
 }
 
+// Message 方法
+const showMessage = (
+  type: MessageType = 'info',
+  duration: number = 3000,
+  center: boolean = false
+) => {
+  const messageTexts = {
+    success: { title: '操作成功', message: '您的操作已成功完成！' },
+    error: { title: '操作失败', message: '操作过程中发生错误，请重试。' },
+    warning: { title: '警告', message: '请注意检查您的输入信息。' },
+    info: { title: '提示', message: '这是一条提示信息。' }
+  }
+
+  const message = {
+    id: messageId++,
+    type,
+    title: messageTexts[type].title,
+    message: messageTexts[type].message,
+    duration,
+    closable: duration === 0,
+    showIcon: true,
+    center
+  }
+
+  messages.value.push(message)
+}
+
+const removeMessage = (id: number) => {
+  const index = messages.value.findIndex(m => m.id === id)
+  if (index > -1) {
+    messages.value.splice(index, 1)
+  }
+}
+
+const showMultipleMessages = () => {
+  showMessage('success', 3000, true)
+  setTimeout(() => showMessage('error', 3000, true), 500)
+  setTimeout(() => showMessage('warning', 3000, true), 1000)
+}
+
 // 演示加载状态
 setInterval(() => {
   isLoading.value = !isLoading.value
@@ -586,5 +689,20 @@ setInterval(() => {
 }
 
 /* 如果需要支持不同的位置，可以通过动态类或内联样式实现 */
+
+/* Message 容器样式 */
+.message-container {
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
 </style>
 

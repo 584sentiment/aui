@@ -1,0 +1,155 @@
+<template>
+  <Transition
+    :name="transitionName"
+    @after-leave="handleAfterLeave"
+  >
+    <div
+      v-if="visible"
+      :class="messageClasses"
+      role="alert"
+      aria-live="polite"
+    >
+      <!-- 图标 -->
+      <div v-if="showIcon" :class="iconClasses">
+        <svg v-if="type === 'success'" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <svg v-else-if="type === 'error'" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+        <svg v-else-if="type === 'warning'" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <svg v-else class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+      </div>
+
+      <!-- 内容 -->
+      <div class="flex-1 min-w-0">
+        <p v-if="title" class="font-semibold text-sm">{{ title }}</p>
+        <p class="text-sm" :class="title ? 'text-text' : 'font-medium text-text'">{{ message }}</p>
+      </div>
+
+      <!-- 关闭按钮 -->
+      <button
+        v-if="closable"
+        @click="handleClose"
+        class="flex-shrink-0 ml-4 text-text-light hover:text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded"
+        aria-label="关闭"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </Transition>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import type { MessageProps, MessageEmits } from './types'
+
+const props = withDefaults(defineProps<MessageProps>(), {
+  type: 'info',
+  duration: 3000,
+  closable: true,
+  showIcon: true,
+  center: false
+})
+
+const emit = defineEmits<MessageEmits>()
+
+const visible = ref(false)
+let timer: ReturnType<typeof setTimeout> | null = null
+
+const messageClasses = computed(() => {
+  const base = 'flex items-center p-4 rounded-lg shadow-strong max-w-md w-full pointer-events-auto'
+  const centerClass = props.center ? 'mx-auto' : ''
+
+  const typeClasses = {
+    success: 'bg-green-50 border border-success text-green-800',
+    error: 'bg-red-50 border border-danger text-red-800',
+    warning: 'bg-yellow-50 border border-warning text-yellow-800',
+    info: 'bg-blue-50 border border-secondary text-blue-800'
+  }
+
+  return [base, typeClasses[props.type], centerClass].join(' ')
+})
+
+const iconClasses = computed(() => {
+  const typeClasses = {
+    success: 'text-success',
+    error: 'text-danger',
+    warning: 'text-warning',
+    info: 'text-secondary'
+  }
+  return `flex-shrink-0 mr-3 ${typeClasses[props.type]}`
+})
+
+const transitionName = computed(() => {
+  return props.center ? 'fade' : 'slide-down'
+})
+
+const handleClose = () => {
+  visible.value = false
+  emit('close')
+}
+
+const handleAfterLeave = () => {
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
+  }
+}
+
+const startTimer = () => {
+  if (props.duration > 0) {
+    timer = setTimeout(() => {
+      handleClose()
+    }, props.duration)
+  }
+}
+
+onMounted(() => {
+  requestAnimationFrame(() => {
+    visible.value = true
+    startTimer()
+  })
+})
+
+onUnmounted(() => {
+  if (timer) {
+    clearTimeout(timer)
+  }
+})
+</script>
+
+<style scoped>
+/* 向下滑入动画 */
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-down-enter-from {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* 淡入淡出动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

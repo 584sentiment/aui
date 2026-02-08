@@ -27,6 +27,9 @@ export type { ModalProps, ModalEmits } from './Modal/types'
 export { default as Toast } from './Toast/Toast.vue'
 export type { ToastProps, ToastEmits, ToastType, ToastPosition } from './Toast/types'
 
+export { default as Message } from './Message/Message.vue'
+export type { MessageProps, MessageEmits, MessageType } from './Message/types'
+
 // 数据展示
 export { default as Timeline } from './Timeline/Timeline.vue'
 export type { TimelineProps, TimelineItem as TimelineItemType } from './Timeline/types'
