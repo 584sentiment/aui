@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job-Ai Components Demo</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js",
+      "@headlessui/vue": "https://unpkg.com/@headlessui/vue@1/dist/headlessui.vue.mjs",
+      "@vuelidate/core": "https://unpkg.com/@vuelidate/core@2/dist/vuelidate.esm.js",
+      "@vuelidate/validators": "https://unpkg.com/@vuelidate/validators@2/dist/validators.esm.js"
+    }
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div id="app"></div>
+
+  <script type="module">
+    import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js'
+
+    createApp({
+      setup() {
+        const inputValue = ref('')
+        const switchValue = ref(false)
+        const selectValue = ref('')
+        const modalOpen = ref(false)
+        const activeTab = ref('tab1')
+
+        const selectOptions = [
+          { label: '选项一', value: '1' },
+          { label: '选项二', value: '2' },
+          { label: '选项三', value: '3' }
+        ]
+
+        return {
+          inputValue,
+          switchValue,
+          selectValue,
+          modalOpen,
+          activeTab,
+          selectOptions
+        }
+      },
+      template: `
+        <div class="min-h-screen p-8">
+          <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-8 text-gray-900">Job-Ai Components 示例</h1>
+
+            <!-- Buttons -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-4 text-gray-800">按钮 Buttons</h2>
+              <div class="flex flex-wrap gap-4">
+                <button class="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  主要按钮
+                </button>
+                <button class="px-4 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                  次要按钮
+                </button>
+                <button class="px-4 py-2.5 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+                  轮廓按钮
+                </button>
+                <button class="px-4 py-2.5 text-gray-700 rounded-lg hover:bg-gray-100 border-2 border-transparent hover:border-gray-300 transition-colors">
+                  幽灵按钮
+                </button>
+                <button class="px-4 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                  危险按钮
+                </button>
+                <button disabled class="px-4 py-2.5 bg-gray-400 text-white rounded-lg opacity-50 cursor-not-allowed">
+                  禁用按钮
+                </button>
+              </div>
+            </section>
+
+            <!-- Form Elements -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-4 text-gray-800">表单元素 Form Elements</h2>
+              <div class="space-y-6 max-w-md">
+                <!-- Input -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                  <input
+                    v-model="inputValue"
+                    type="text"
+                    placeholder="请输入用户名"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                  />
+                </div>
+
+                <!-- Select -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">选择项</label>
+                  <select
+                    v-model="selectValue"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                  >
+                    <option value="">请选择</option>
+                    <option v-for="option in selectOptions" :key="option.value" :value="option.value">
+                      {{ option.label }}
+                    </option>
+                  </select>
+                  <p class="mt-1 text-sm text-gray-600">当前选择: {{ selectValue || '无' }}</p>
+                </div>
+
+                <!-- Switch -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">开关 Switch</label>
+                  <button
+                    @click="switchValue = !switchValue"
+                    :class="[
+                      'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2',
+                      switchValue ? 'bg-blue-600' : 'bg-gray-200'
+                    ]"
+                    role="switch"
+                    :aria-checked="switchValue"
+                  >
+                    <span
+                      :class="[
+                        'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                        switchValue ? 'translate-x-5' : 'translate-x-0'
+                      ]"
+                    />
+                  </button>
+                  <p class="mt-1 text-sm text-gray-600">当前状态: {{ switchValue ? '开启' : '关闭' }}</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Modal Trigger -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-4 text-gray-800">对话框 Modal</h2>
+              <button
+                @click="modalOpen = true"
+                class="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                打开对话框
+              </button>
+
+              <!-- Modal Overlay -->
+              <div v-if="modalOpen" class="relative z-50">
+                <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" @click="modalOpen = false"></div>
+                <div class="fixed inset-0 z-10 overflow-y-auto">
+                  <div class="flex min-h-full items-center justify-center p-4">
+                    <div class="relative transform overflow-hidden rounded-xl bg-white shadow-xl transition-all max-w-md w-full">
+                      <!-- Header -->
+                      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900">对话框标题</h3>
+                        <button
+                          @click="modalOpen = false"
+                          class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-lg"
+                        >
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- Body -->
+                      <div class="px-6 py-4">
+                        <p class="text-gray-600">这是对话框的内容区域。</p>
+                      </div>
+                      <!-- Footer -->
+                      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200">
+                        <button
+                          @click="modalOpen = false"
+                          class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                        >
+                          取消
+                        </button>
+                        <button
+                          @click="modalOpen = false"
+                          class="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition-colors"
+                        >
+                          确认
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Cards -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-4 text-gray-800">卡片 Cards</h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">卡片标题 1</h3>
+                  <p class="text-gray-600">这是卡片的内容描述。</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">卡片标题 2</h3>
+                  <p class="text-gray-600">这是卡片的内容描述。</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">卡片标题 3</h3>
+                  <p class="text-gray-600">这是卡片的内容描述。</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- State Badges -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-semibold mb-4 text-gray-800">状态标签 Status Badges</h2>
+              <div class="flex flex-wrap gap-3">
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">成功</span>
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">信息</span>
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">警告</span>
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">危险</span>
+              </div>
+            </section>
+          </div>
+        </div>
+      `
+    }).mount('#app')
+  </script>
+</body>
+</html>

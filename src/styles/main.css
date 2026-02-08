@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-text;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* 玻璃态效果 */
+  .glass-card {
+    @apply bg-surface rounded-xl shadow-soft;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* 按钮基础样式 */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* 输入框基础样式 */
+  .input-base {
+    @apply w-full px-4 py-2.5 rounded-lg border border-border bg-surface text-text placeholder-text-light transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+}

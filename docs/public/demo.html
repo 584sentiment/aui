@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job-Ai Components - 在线演示</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="min-h-screen">
+    <!-- 顶部导航 -->
+    <header class="bg-blue-600 text-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-3">
+            <h1 class="text-2xl font-bold">Job-Ai Components</h1>
+            <span class="px-3 py-1 bg-blue-700 rounded-full text-sm">在线演示</span>
+          </div>
+          <nav class="flex gap-6 text-sm">
+            <a href="../index.html" class="hover:text-blue-200 transition-colors">← 返回文档</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- 介绍 -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">组件库在线演示</h2>
+        <p class="text-gray-600 text-lg mb-6">
+          这是 Job-Ai 组件库的交互式演示页面，所有组件都可以实时查看和交互。
+        </p>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p class="text-blue-800">
+            💡 <strong>提示</strong>: 点击所有按钮、输入框、开关等组件，查看它们的交互效果。
+          </p>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <section class="mb-16">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          Button 按钮
+          <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded">基础组件</span>
+        </h3>
+
+        <div class="space-y-6">
+          <!-- 不同样式 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-medium text-gray-900 mb-4">不同样式</h4>
+            <div class="flex flex-wrap gap-4">
+              <button onclick="handleClick('primary')" class="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">主要按钮</button>
+              <button onclick="handleClick('secondary')" class="px-4 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">次要按钮</button>
+              <button onclick="handleClick('outline')" class="px-4 py-2.5 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors">轮廓按钮</button>
+              <button onclick="handleClick('ghost')" class="px-4 py-2.5 text-gray-700 rounded-lg hover:bg-gray-100 border-2 border-transparent hover:border-gray-300 transition-colors">幽灵按钮</button>
+              <button onclick="handleClick('danger')" class="px-4 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">危险按钮</button>
+            </div>
+          </div>
+
+          <!-- 不同尺寸 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-medium text-gray-900 mb-4">不同尺寸</h4>
+            <div class="flex flex-wrap items-center gap-4">
+              <button class="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">小按钮</button>
+              <button class="px-4 py-2.5 text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700">中按钮</button>
+              <button class="px-6 py-3 text-lg bg-blue-600 text-white rounded-lg hover:bg-blue-700">大按钮</button>
+            </div>
+          </div>
+
+          <!-- 状态 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-medium text-gray-900 mb-4">不同状态</h4>
+            <div class="flex flex-wrap gap-4">
+              <button>正常按钮</button>
+              <button disabled class="opacity-50 cursor-not-allowed bg-gray-400">禁用按钮</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form Elements -->
+      <section class="mb-16">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          Form 表单组件
+          <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">表单</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Inputs -->
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-medium text-gray-900 mb-4">Input 输入框</h4>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                <input id="username" type="text" placeholder="请输入用户名" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                <p class="mt-1 text-sm text-gray-600">用户名: <span id="username-display">(空)</span></p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                <input id="email" type="email" placeholder="example@email.com" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+              </div>
+            </div>
+          </div>
+
+          <!-- Switch -->
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-medium text-gray-900 mb-4">Switch 开关</h4>
+            <div class="space-y-4">
+              <div>
+                <button id="switch1" onclick="toggleSwitch()" aria-checked="false" class="relative w-11 h-6 bg-gray-200 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                  <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                </button>
+                <p class="mt-2 text-sm text-gray-600">通知状态: <span id="switch-display">关闭</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Status Cards -->
+      <section class="mb-16">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-6">状态标签</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div class="flex flex-wrap gap-3">
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">成功</span>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">信息</span>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">警告</span>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">危险</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Usage Info -->
+      <section class="mb-16">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-6">如何在项目中使用</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h4 class="text-lg font-medium text-gray-900 mb-4">安装</h4>
+          <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code>npm install @job-ai/components</code></pre>
+
+          <h4 class="text-lg font-medium text-gray-900 mb-4 mt-6">使用</h4>
+          <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;script setup&gt;
+import { Button } from '@job-ai/components'
+import '@job-ai/components/style.css'
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;Button variant="primary"&gt;点击我&lt;/Button&gt;
+&lt;/template&gt;</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <p class="text-center text-gray-400 text-sm">
+          Job-Ai Components 在线演示 | 基于 Vue 3 + Tailwind CSS
+        </p>
+        <p class="text-center text-gray-500 text-xs mt-2">
+          返回文档: <a href="../index.html" class="text-blue-400 hover:text-blue-300">首页</a>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 简单的交互逻辑
+    const handleClick = (variant) => {
+      console.log('Button clicked:', variant);
+      alert(`你点击了 ${variant} 按钮！`);
+    };
+
+    // 用户名输入同步
+    const usernameInput = document.getElementById('username');
+    const usernameDisplay = document.getElementById('username-display');
+    if (usernameInput && usernameDisplay) {
+      usernameInput.addEventListener('input', (e) => {
+        usernameDisplay.textContent = e.target.value || '(空)';
+      });
+    }
+
+    // Switch 切换
+    let switchState = false;
+    const switchButton = document.getElementById('switch1');
+    const switchDisplay = document.getElementById('switch-display');
+
+    if (switchButton && switchDisplay) {
+      switchButton.addEventListener('click', () => {
+        switchState = !switchState;
+        const dot = switchButton.querySelector('span');
+
+        if (switchState) {
+          switchButton.classList.remove('bg-gray-200');
+          switchButton.classList.add('bg-blue-600');
+          dot.classList.remove('translate-x-0');
+          dot.classList.add('translate-x-5');
+          switchButton.setAttribute('aria-checked', 'true');
+          switchDisplay.textContent = '开启';
+        } else {
+          switchButton.classList.add('bg-gray-200');
+          switchButton.classList.remove('bg-blue-600');
+          dot.classList.add('translate-x-0');
+          dot.classList.remove('translate-x-5');
+          switchButton.setAttribute('aria-checked', 'false');
+          switchDisplay.textContent = '关闭';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
