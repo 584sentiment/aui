@@ -24,6 +24,9 @@ export type { PaginationProps } from './Pagination/types'
 export { default as Modal } from './Modal/Modal.vue'
 export type { ModalProps, ModalEmits } from './Modal/types'
 
+export { default as Toast } from './Toast/Toast.vue'
+export type { ToastProps, ToastEmits, ToastType, ToastPosition } from './Toast/types'
+
 // 数据展示
 export { default as Timeline } from './Timeline/Timeline.vue'
 export type { TimelineProps, TimelineItem as TimelineItemType } from './Timeline/types'

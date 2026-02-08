@@ -183,6 +183,52 @@
             确定要删除这条记录吗？此操作无法撤销。
           </p>
         </Modal>
+
+        <!-- Toast 演示 -->
+        <div class="glass-card p-6 mt-6">
+          <h4 class="text-lg font-medium text-text mb-4">Toast 提示消息</h4>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showToast('success')" variant="primary">显示成功 Toast</Button>
+              <Button @click="showToast('error')" variant="danger">显示错误 Toast</Button>
+              <Button @click="showToast('warning')" variant="outline">显示警告 Toast</Button>
+              <Button @click="showToast('info')" variant="secondary">显示信息 Toast</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showToast('success', 2000)" variant="primary" size="sm">显示 Toast (2秒)</Button>
+              <Button @click="showToast('error', 0)" variant="danger" size="sm">显示 Toast (手动关闭)</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showToast('success', 3000, 'top-left')" variant="outline" size="sm">左上角</Button>
+              <Button @click="showToast('error', 3000, 'top-right')" variant="outline" size="sm">右上角</Button>
+              <Button @click="showToast('warning', 3000, 'bottom-left')" variant="outline" size="sm">左下角</Button>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button @click="showMultipleToasts" variant="secondary">显示多个 Toast</Button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toast 容器 -->
+        <Teleport to="body">
+          <div class="toast-container">
+            <Toast
+              v-for="toast in toasts"
+              :key="toast.id"
+              :type="toast.type"
+              :title="toast.title"
+              :message="toast.message"
+              :duration="toast.duration"
+              :closable="toast.closable"
+              :show-icon="toast.showIcon"
+              :position="toast.position"
+              @close="removeToast(toast.id)"
+            />
+          </div>
+        </Teleport>
       </section>
 
       <!-- 导航组件 -->
@@ -332,6 +378,8 @@ import Tabs from '../components/Tabs/Tabs.vue'
 import Pagination from '../components/Pagination/Pagination.vue'
 import Timeline from '../components/Timeline/Timeline.vue'
 import DatePicker from '../components/DatePicker/DatePicker.vue'
+import Toast from '../components/Toast/Toast.vue'
+import type { ToastType, ToastPosition } from '../components/Toast/types'
 
 // 状态
 const isLoading = ref(false)
@@ -342,6 +390,19 @@ const activeTabCard = ref('tab1')
 const currentPage = ref(1)
 const pageSize = ref(10)
 const submitted = ref(false)
+
+// Toast 状态
+const toasts = ref<Array<{
+  id: number
+  type: ToastType
+  title: string
+  message: string
+  duration: number
+  closable: boolean
+  showIcon: boolean
+  position: ToastPosition
+}>>([])
+let toastId = 0
 
 // 表单数据
 const formData = reactive({
@@ -458,8 +519,72 @@ const resetForm = () => {
   submitted.value = false
 }
 
+// Toast 方法
+const showToast = (
+  type: ToastType = 'info',
+  duration: number = 3000,
+  position: ToastPosition = 'top-right'
+) => {
+  const messages = {
+    success: { title: '操作成功', message: '您的操作已成功完成！' },
+    error: { title: '操作失败', message: '操作过程中发生错误，请重试。' },
+    warning: { title: '警告', message: '请注意检查您的输入信息。' },
+    info: { title: '提示', message: '这是一条提示信息。' }
+  }
+
+  const toast = {
+    id: toastId++,
+    type,
+    title: messages[type].title,
+    message: messages[type].message,
+    duration,
+    closable: duration === 0,
+    showIcon: true,
+    position
+  }
+
+  toasts.value.push(toast)
+}
+
+const removeToast = (id: number) => {
+  const index = toasts.value.findIndex(t => t.id === id)
+  if (index > -1) {
+    toasts.value.splice(index, 1)
+  }
+}
+
+const showMultipleToasts = () => {
+  showToast('success', 3000, 'top-right')
+  setTimeout(() => showToast('error', 3000, 'top-right'), 500)
+  setTimeout(() => showToast('warning', 3000, 'top-right'), 1000)
+}
+
 // 演示加载状态
 setInterval(() => {
   isLoading.value = !isLoading.value
 }, 3000)
 </script>
+
+<style scoped>
+/* Toast 容器样式 */
+.toast-container {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  max-width: 400px;
+  width: 100%;
+}
+
+.toast-container:deep(.toast-wrapper) {
+  position: relative;
+}
+
+/* 根据 position 定位容器 */
+.toast-container {
+  top: 1rem;
+  right: 1rem;
+}
+
+/* 如果需要支持不同的位置，可以通过动态类或内联样式实现 */
+</style>
+
