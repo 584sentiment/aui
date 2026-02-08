@@ -57,24 +57,16 @@
       </Tab>
     </TabList>
 
-    <TabPanels class="mt-4">
-      <slot>
-        <TabPanel
-          v-for="item in items"
-          :key="item.value"
-          :value="item.value"
-          class="focus:outline-none"
-        >
-          {{ item.label }}
-        </TabPanel>
-      </slot>
-    </TabPanels>
+    <!-- 使用默认插槽让用户自定义内容区域 -->
+    <div class="mt-4">
+      <slot />
+    </div>
   </TabGroup>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { TabGroup, TabList, Tab } from '@headlessui/vue'
 import type { TabsProps, TabsEmits } from './types'
 
 const props = withDefaults(defineProps<TabsProps>(), {

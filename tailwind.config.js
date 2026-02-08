@@ -41,6 +41,11 @@ export default {
         'soft': '0 2px 8px rgba(0, 0, 0, 0.05)',
         'medium': '0 4px 12px rgba(0, 0, 0, 0.08)',
         'strong': '0 8px 24px rgba(0, 0, 0, 0.12)'
+      },
+      zIndex: {
+        'dropdown': '50',
+        'modal': '100',
+        'toast': '200'
       }
     }
   },
