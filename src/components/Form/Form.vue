@@ -32,6 +32,14 @@ const formContext = ref({
 
 provide('form', formContext)
 
+// 验证辅助函数 - 必须在 computed rules 之前定义
+const required = (value: any) => !!value || '此字段为必填项'
+const email = (value: string) => /.+@.+\..+/.test(value) || '请输入有效的邮箱地址'
+const minValue = (min: number) => (value: number) => value >= min || `最小值为 ${min}`
+const maxValue = (max: number) => (value: number) => value <= max || `最大值为 ${max}`
+const minLength = (min: number) => (value: string) => value.length >= min || `最少 ${min} 个字符`
+const maxLength = (max: number) => (value: string) => value.length <= max || `最多 ${max} 个字符`
+
 // Vuelidate 实例
 const rules = computed(() => {
   if (!props.rules) return {}
@@ -44,14 +52,14 @@ const rules = computed(() => {
         return { required }
       } else if (rule.type === 'email') {
         return { email }
-      } else if (rule.type === 'min') {
-        return { minValue: rule.min }
-      } else if (rule.type === 'max') {
-        return { maxValue: rule.max }
-      } else if (rule.type === 'minLength') {
-        return { minLength: rule.min }
-      } else if (rule.type === 'maxLength') {
-        return { maxLength: rule.max }
+      } else if (rule.type === 'min' && rule.min !== undefined) {
+        return { minValue: minValue(rule.min) }
+      } else if (rule.type === 'max' && rule.max !== undefined) {
+        return { maxValue: maxValue(rule.max) }
+      } else if (rule.type === 'minLength' && rule.min !== undefined) {
+        return { minLength: minLength(rule.min) }
+      } else if (rule.type === 'maxLength' && rule.max !== undefined) {
+        return { maxLength: maxLength(rule.max) }
       } else if (rule.type === 'pattern' && rule.pattern) {
         return { pattern: rule.pattern }
       } else if (rule.validator) {
@@ -64,14 +72,6 @@ const rules = computed(() => {
 })
 
 const v$ = useVuelidate(rules, props.model)
-
-// 验证辅助函数
-const required = (value: any) => !!value || '此字段为必填项'
-const email = (value: string) => /.+@.+\..+/.test(value) || '请输入有效的邮箱地址'
-const minValue = (min: number) => (value: number) => value >= min || `最小值为 ${min}`
-const maxValue = (max: number) => (value: number) => value <= max || `最大值为 ${max}`
-const minLength = (min: number) => (value: string) => value.length >= min || `最少 ${min} 个字符`
-const maxLength = (max: number) => (value: string) => value.length <= max || `最多 ${max} 个字符`
 
 // 提供验证方法给子组件
 provide('validate', v$)

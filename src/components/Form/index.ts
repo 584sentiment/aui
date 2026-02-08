@@ -1,2 +1,3 @@
 export { default as Form } from './Form.vue'
-export type { FormProps, FormRules, FormRule, FormEmits } from './types'
+export { default as FormField } from './FormField.vue'
+export type { FormProps, FormRules, FormRule, FormEmits, FormFieldProps } from './types'

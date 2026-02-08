@@ -2,9 +2,9 @@
 
 时间轴组件，用于展示时间序列信息。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Timeline 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/TimelineDemo.vue" />
 
 ## 基础用法
 

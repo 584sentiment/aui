@@ -1,7 +1,10 @@
 <template>
   <Dialog :open="modelValue" @close="handleClose" class="relative z-modal">
     <!-- Backdrop -->
-    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" aria-hidden="true" />
+    <div
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+      aria-hidden="true"
+    />
 
     <!-- Full screen container to center the modal -->
     <div class="fixed inset-0 z-10 overflow-y-auto">
@@ -11,10 +14,15 @@
           class="relative transform overflow-hidden rounded-xl bg-surface shadow-strong transition-all"
         >
           <!-- Header -->
-          <div v-if="title || $slots.header || closable" class="flex items-center justify-between px-6 py-4 border-b border-border">
+          <div
+            v-if="title || $slots.header || closable"
+            class="flex items-center justify-between px-6 py-4 border-b border-border"
+          >
             <div v-if="title || $slots.header">
               <slot name="header">
-                <DialogTitle class="text-lg font-semibold text-text font-heading">
+                <DialogTitle
+                  class="text-lg font-semibold text-text font-heading"
+                >
                   {{ title }}
                 </DialogTitle>
               </slot>
@@ -24,8 +32,18 @@
               @click="handleClose"
               class="text-text-light hover:text-text transition-colors p-1 hover:bg-gray-100 rounded-lg"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -40,7 +58,10 @@
           </div>
 
           <!-- Footer -->
-          <div v-if="showFooter || $slots.footer" class="flex items-center justify-end gap-3 px-6 py-4 border-t border-border">
+          <div
+            v-if="showFooter || $slots.footer"
+            class="flex items-center justify-end gap-3 px-6 py-4 border-t border-border"
+          >
             <slot name="footer">
               <button
                 v-if="showFooter"
@@ -68,9 +89,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
-import { Dialog, DialogPanel, DialogTitle, DialogDescription } from '@headlessui/vue'
-import type { ModalProps, ModalEmits } from './types'
+import { computed, watch } from 'vue';
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  DialogDescription,
+} from '@headlessui/vue';
+import type { ModalProps, ModalEmits } from './types';
 
 const props = withDefaults(defineProps<ModalProps>(), {
   size: 'md',
@@ -79,10 +105,12 @@ const props = withDefaults(defineProps<ModalProps>(), {
   showFooter: false,
   confirmText: '确认',
   cancelText: '取消',
-  loading: false
-})
+  loading: false,
+});
 
-const emit = defineEmits<ModalEmits>()
+const modelValue = defineModel<boolean>({ default: false });
+
+const emit = defineEmits<ModalEmits>();
 
 const modalClasses = computed(() => {
   const sizeClasses = {
@@ -90,33 +118,36 @@ const modalClasses = computed(() => {
     md: 'max-w-md w-full',
     lg: 'max-w-lg w-full',
     xl: 'max-w-xl w-full',
-    full: 'max-w-6xl w-full'
-  }
-  return sizeClasses[props.size]
-})
+    full: 'max-w-6xl w-full',
+  };
+  return sizeClasses[props.size];
+});
 
 const handleClose = () => {
   if (props.closable && !props.loading) {
-    emit('update:modelValue', false)
+    modelValue.value = false;
   }
-}
+};
 
 const handleCancel = () => {
-  emit('cancel')
-  emit('update:modelValue', false)
-}
+  emit('cancel');
+  modelValue.value = false;
+};
 
 const handleConfirm = () => {
   if (!props.loading) {
-    emit('confirm')
+    emit('confirm');
   }
-}
+};
 
-watch(() => props.modelValue, (newValue) => {
-  if (newValue) {
-    emit('afterOpen')
-  } else {
-    emit('afterClose')
-  }
-})
+watch(
+  () => props.modelValue,
+  newValue => {
+    if (newValue) {
+      emit('afterOpen');
+    } else {
+      emit('afterClose');
+    }
+  },
+);
 </script>

@@ -1,15 +1,15 @@
 <template>
-  <div class="pagination-wrapper flex items-center justify-between gap-4">
+  <div v-if="!simple" class="pagination-wrapper flex items-center justify-between gap-4">
     <!-- 总数显示 -->
-    <div v-if="showTotal" class="text-sm text-text-secondary">
+    <div v-if="showTotal && total" class="text-sm text-text-secondary">
       共 {{ total }} 条
     </div>
 
     <!-- 分页按钮 -->
     <div class="flex items-center gap-2">
       <button
-        :disabled="page <= 1 || disabled"
-        @click="handlePageChange(page - 1)"
+        :disabled="currentPage <= 1 || disabled"
+        @click="handlePageChange(currentPage - 1)"
         class="px-3 py-2 rounded-lg border border-border bg-surface hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,19 +24,19 @@
           @click="handlePageChange(p)"
           :class="[
             'min-w-[40px] px-3 py-2 rounded-lg transition-colors',
-            p === page
+            p === currentPage
               ? 'bg-primary text-white'
               : 'border border-border bg-surface hover:bg-gray-50 text-text'
           ]"
           :disabled="disabled"
         >
-          {{ p }}
+          {{ p === -1 ? '...' : p }}
         </button>
       </div>
 
       <button
-        :disabled="page >= totalPages || disabled"
-        @click="handlePageChange(page + 1)"
+        :disabled="currentPage >= computedTotalPages || disabled"
+        @click="handlePageChange(currentPage + 1)"
         class="px-3 py-2 rounded-lg border border-border bg-surface hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,6 +56,29 @@
       />
     </div>
   </div>
+
+  <!-- 简洁模式 -->
+  <div v-else class="pagination-wrapper-simple flex items-center justify-center gap-2">
+    <button
+      :disabled="currentPage <= 1 || disabled"
+      @click="handlePageChange(currentPage - 1)"
+      class="px-3 py-2 rounded-lg border border-border bg-surface hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
+      上一页
+    </button>
+
+    <div class="text-sm text-text-secondary">
+      {{ currentPage }} / {{ computedTotalPages }}
+    </div>
+
+    <button
+      :disabled="currentPage >= computedTotalPages || disabled"
+      @click="handlePageChange(currentPage + 1)"
+      class="px-3 py-2 rounded-lg border border-border bg-surface hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
+      下一页
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -64,25 +87,40 @@ import Select from '../Select/Select.vue'
 import type { PaginationProps, PaginationEmits } from './types'
 
 const props = withDefaults(defineProps<PaginationProps>(), {
+  page: 1,
+  pageSize: 10,
+  total: 0,
   showSizeChanger: false,
   showTotal: false,
+  simple: false,
   pageSizeOptions: () => [10, 20, 50, 100],
   disabled: false
 })
 
 const emit = defineEmits<PaginationEmits>()
 
-const totalPages = computed(() => Math.ceil(props.total / props.pageSize))
+// 支持 currentPage 和 page 两种 API
+const currentPage = computed(() => props.currentPage || props.page || 1)
+
+// 支持 totalPages 和 total 两种 API
+const computedTotalPages = computed(() => {
+  if (props.totalPages) {
+    return props.totalPages
+  }
+  return props.total ? Math.ceil(props.total / props.pageSize) : 1
+})
 
 const displayPages = computed(() => {
   const pages: number[] = []
+  const total = computedTotalPages.value
+  const current = currentPage.value
   const delta = 2 // 当前页前后显示的页数
 
-  for (let i = 1; i <= totalPages.value; i++) {
+  for (let i = 1; i <= total; i++) {
     if (
       i === 1 ||
-      i === totalPages.value ||
-      (i >= props.page - delta && i <= props.page + delta)
+      i === total ||
+      (i >= current - delta && i <= current + delta)
     ) {
       pages.push(i)
     } else if (pages[pages.length - 1] !== -1) {
@@ -93,15 +131,18 @@ const displayPages = computed(() => {
   return pages
 })
 
-const handlePageChange = (page: number) => {
-  if (page < 1 || page > totalPages.value || props.disabled) return
-  emit('update:page', page)
-  emit('change', page, props.pageSize)
+const handlePageChange = (newPage: number) => {
+  if (newPage < 1 || newPage > computedTotalPages.value || props.disabled) return
+
+  // 同时触发两种事件格式
+  emit('update:currentPage', newPage)
+  emit('update:page', newPage)
+  emit('change', newPage, props.pageSize)
 }
 
 const handleSizeChange = (pageSize: string | number) => {
   const size = typeof pageSize === 'string' ? parseInt(pageSize) : pageSize
   emit('update:pageSize', size)
-  emit('change', props.page, size)
+  emit('change', currentPage.value, size)
 }
 </script>

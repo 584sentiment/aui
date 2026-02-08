@@ -28,3 +28,9 @@ export interface FormEmits {
   submit: [model: Record<string, any>]
   reset: []
 }
+
+export interface FormFieldProps {
+  label?: string
+  name?: string
+  required?: boolean
+}

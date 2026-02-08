@@ -10,7 +10,7 @@
       v-if="variant === 'line'"
     >
       <Tab
-        v-for="item in items"
+        v-for="item in displayItems"
         :key="item.value"
         v-slot="{ selected }"
         :disabled="item.disabled"
@@ -36,7 +36,7 @@
       v-else
     >
       <Tab
-        v-for="item in items"
+        v-for="item in displayItems"
         :key="item.value"
         v-slot="{ selected }"
         :disabled="item.disabled"
@@ -65,9 +65,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, provide, useSlots } from 'vue'
 import { TabGroup, TabList, Tab } from '@headlessui/vue'
-import type { TabsProps, TabsEmits } from './types'
+import type { TabsProps, TabsEmits, TabItem } from './types'
 
 const props = withDefaults(defineProps<TabsProps>(), {
   variant: 'line',
@@ -76,15 +76,47 @@ const props = withDefaults(defineProps<TabsProps>(), {
 
 const emit = defineEmits<TabsEmits>()
 
+const slots = useSlots()
+
+// 收集 TabPanel 子组件
+const tabPanels = computed(() => {
+  const defaultSlot = slots.default?.()
+  if (!defaultSlot) return []
+
+  const panels: Array<{ value: string; label?: string; disabled?: boolean }> = []
+  defaultSlot.forEach((child: any) => {
+    if (child.type?.name === 'TabPanel' || child.type?.__name === 'TabPanel') {
+      panels.push({
+        value: child.props?.value || '',
+        label: child.props?.label,
+        disabled: child.props?.disabled || false
+      })
+    }
+  })
+  return panels
+})
+
+// 如果有 TabPanel 子组件，使用它们；否则使用 items prop
+const displayItems = computed<TabItem[]>(() => {
+  if (tabPanels.value.length > 0) {
+    return tabPanels.value.map(p => ({
+      value: p.value,
+      label: p.label || p.value,
+      disabled: p.disabled
+    }))
+  }
+  return props.items || []
+})
+
 // 计算当前选中的索引
 const currentIndex = computed(() => {
-  const index = props.items.findIndex(item => item.value === props.modelValue)
+  const index = displayItems.value.findIndex(item => item.value === props.modelValue)
   return index >= 0 ? index : 0
 })
 
 // 处理索引变化
 const handleIndexChange = (index: number) => {
-  const item = props.items[index]
+  const item = displayItems.value[index]
   if (item && item.value !== props.modelValue) {
     emit('update:modelValue', item.value)
     emit('change', item.value)
@@ -98,4 +130,7 @@ const tabListClasses = computed(() => {
 const cardTabListClasses = computed(() => {
   return 'flex gap-2 bg-background p-2 rounded-lg'
 })
+
+// 提供当前选中的值给 TabPanel 子组件
+provide('tabsCurrentValue', computed(() => props.modelValue))
 </script>

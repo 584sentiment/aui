@@ -2,9 +2,9 @@
 
 分页组件，用于数据分页。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Pagination 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/PaginationDemo.vue" />
 
 ## 基础用法
 

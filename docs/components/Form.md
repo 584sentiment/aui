@@ -2,9 +2,9 @@
 
 表单容器组件，提供表单验证功能。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Form 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/FormDemo.vue" />
 
 ## 基础用法
 

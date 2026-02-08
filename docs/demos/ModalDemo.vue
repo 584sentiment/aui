@@ -3,7 +3,7 @@
     <h3>基础对话框</h3>
     <div class="demo-section">
       <Button @click="showBasic = true">打开对话框</Button>
-      <Modal v-model:open="showBasic" title="基础对话框">
+      <Modal v-model="showBasic" title="基础对话框">
         <p>这是一个基础的对话框内容。</p>
       </Modal>
     </div>
@@ -12,7 +12,7 @@
     <div class="demo-section">
       <Button @click="showConfirm = true">确认操作</Button>
       <Modal
-        v-model:open="showConfirm"
+        v-model="showConfirm"
         title="确认删除"
         type="confirm"
         @confirm="handleConfirm"
@@ -25,7 +25,7 @@
     <div class="demo-section">
       <Button @click="showCustom = true">自定义按钮</Button>
       <Modal
-        v-model:open="showCustom"
+        v-model="showCustom"
         title="自定义按钮"
         :show-footer="false"
       >
@@ -40,7 +40,7 @@
     <h3>大型对话框</h3>
     <div class="demo-section">
       <Button @click="showLarge = true">大型对话框</Button>
-      <Modal v-model:open="showLarge" title="大型对话框" size="lg">
+      <Modal v-model="showLarge" title="大型对话框" size="lg">
         <div style="padding: 1rem 0;">
           <p>这是一个大型对话框，适合展示更多内容。</p>
           <p v-for="i in 5" :key="i">这是第 {{ i }} 段示例文本。</p>

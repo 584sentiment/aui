@@ -11,7 +11,7 @@ export interface TabItem {
 
 export interface TabsProps {
   modelValue: string
-  items: TabItem[]
+  items?: TabItem[]
   variant?: 'line' | 'card'
   size?: 'sm' | 'md' | 'lg'
 }

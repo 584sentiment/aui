@@ -2,9 +2,9 @@
 
 开关选择器，用于切换开关状态。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Switch 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/SwitchDemo.vue" />
 
 ## 基础用法
 

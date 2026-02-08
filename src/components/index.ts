@@ -15,6 +15,7 @@ export type { SwitchProps } from './Switch/types'
 
 // 导航组件
 export { default as Tabs } from './Tabs/Tabs.vue'
+export { default as TabPanel } from './Tabs/TabPanel.vue'
 export type { TabsProps, TabItem } from './Tabs/types'
 
 export { default as Pagination } from './Pagination/Pagination.vue'
@@ -42,4 +43,5 @@ export { default as Select } from './Select/Select.vue'
 export type { SelectProps, SelectOption } from './Select/types'
 
 export { default as Form } from './Form/Form.vue'
-export type { FormProps, FormRule } from './Form/types'
+export { default as FormField } from './Form/FormField.vue'
+export type { FormProps, FormRule, FormFieldProps } from './Form/types'
