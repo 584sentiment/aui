@@ -1,7 +1,7 @@
 <template>
   <TabGroup
-    :model-value="modelValue"
-    @update:model-value="handleChange"
+    :default-index="currentIndex"
+    @change="handleIndexChange"
     as="div"
     class="tabs-wrapper"
   >
@@ -76,6 +76,21 @@ const props = withDefaults(defineProps<TabsProps>(), {
 
 const emit = defineEmits<TabsEmits>()
 
+// 计算当前选中的索引
+const currentIndex = computed(() => {
+  const index = props.items.findIndex(item => item.value === props.modelValue)
+  return index >= 0 ? index : 0
+})
+
+// 处理索引变化
+const handleIndexChange = (index: number) => {
+  const item = props.items[index]
+  if (item && item.value !== props.modelValue) {
+    emit('update:modelValue', item.value)
+    emit('change', item.value)
+  }
+}
+
 const tabListClasses = computed(() => {
   return 'flex border-b border-border bg-surface rounded-t-lg'
 })
@@ -83,9 +98,4 @@ const tabListClasses = computed(() => {
 const cardTabListClasses = computed(() => {
   return 'flex gap-2 bg-background p-2 rounded-lg'
 })
-
-const handleChange = (value: string) => {
-  emit('update:modelValue', value)
-  emit('change', value)
-}
 </script>
