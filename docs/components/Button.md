@@ -2,9 +2,9 @@
 
 基础按钮组件，支持多种样式和尺寸。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Button 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/ButtonDemo.vue" />
 
 ## 基础用法
 

@@ -2,9 +2,9 @@
 
 基础输入框组件，支持多种类型和验证。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Input 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/InputDemo.vue" />
 
 ## 基础用法
 

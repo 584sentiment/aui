@@ -2,9 +2,9 @@
 
 日期选择组件，支持日期、时间等类型。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 DatePicker 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/DatePickerDemo.vue" />
 
 ## 基础用法
 

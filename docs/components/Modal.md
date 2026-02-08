@@ -2,9 +2,9 @@
 
 模态对话框组件，用于需要用户处理的重要事务。
 
-## 在线演示
+## 实时演示
 
-👉 **[查看 Modal 组件交互演示](http://localhost:5173/demo.html)**
+<demo vue="../demos/ModalDemo.vue" />
 
 ## 基础用法
 

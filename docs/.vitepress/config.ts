@@ -1,9 +1,25 @@
 import { defineConfig } from 'vitepress'
+import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import path from 'path'
 
 export default defineConfig({
   title: '@job-ai/components',
   description: 'Job-Ai 组件库文档',
   cleanUrls: true,
+  markdown: {
+    config(md) {
+      md.use(vitepressDemoPlugin, {
+        // 插件配置
+      })
+    }
+  },
+  vite: {
+    resolve: {
+      alias: {
+        '@job-ai/components': path.resolve(__dirname, '../../src')
+      }
+    }
+  },
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/getting-started' },
