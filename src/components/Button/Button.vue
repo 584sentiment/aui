@@ -62,6 +62,7 @@ const variantClasses = computed(() => {
 const buttonClasses = computed(() => {
   return [
     baseClasses,
+    'rounded-xl', // 直接添加圆角类
     sizeClasses.value,
     variantClasses.value,
     props.block && 'w-full'
