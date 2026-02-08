@@ -52,100 +52,243 @@
         class="absolute z-[130] mt-2 w-full sm:w-80 rounded-lg bg-surface shadow-medium border border-border"
         @click.outside="closePopover"
       >
-        <!-- 日历头部：年月导航 -->
-        <div class="flex items-center justify-between px-4 py-3 border-b border-border">
-          <button
-            type="button"
-            class="p-1 hover:bg-background rounded transition-colors"
-            @click="previousMonth"
-            @keydown.enter="previousMonth"
-          >
-            <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            class="text-base font-semibold text-text hover:text-primary transition-colors"
-            @click="toggleYearMonthView"
-          >
-            {{ currentMonthYear }}
-          </button>
-
-          <button
-            type="button"
-            class="p-1 hover:bg-background rounded transition-colors"
-            @click="nextMonth"
-            @keydown.enter="nextMonth"
-          >
-            <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        <!-- 星期标题 -->
-        <div class="grid grid-cols-7 gap-1 px-4 py-2">
-          <div
-            v-for="day in weekDays"
-            :key="day"
-            class="text-center text-xs font-medium text-text-secondary py-1"
-          >
-            {{ day }}
-          </div>
-        </div>
-
-        <!-- 日期网格 -->
-        <div class="grid grid-cols-7 gap-1 px-4 py-2">
-          <button
-            v-for="date in calendarDates"
-            :key="date.key"
-            type="button"
-            :class="dateClasses(date)"
-            :disabled="date.disabled"
-            @click="selectDate(date)"
-            @keydown.enter="selectDate(date)"
-          >
-            {{ date.day }}
-          </button>
-        </div>
-
-        <!-- 快捷选项 -->
-        <div v-if="showShortcuts" class="border-t border-border px-4 py-3">
-          <div class="flex flex-wrap gap-2">
+        <!-- 日视图 -->
+        <template v-if="viewMode === 'days'">
+          <!-- 日历头部：年月导航 -->
+          <div class="flex items-center justify-between px-4 py-3 border-b border-border">
             <button
-              v-for="shortcut in shortcuts"
-              :key="shortcut.label"
               type="button"
-              class="px-3 py-1.5 text-xs font-medium rounded-lg border border-border hover:bg-primaryLight hover:text-primary hover:border-primary transition-all"
-              @click="selectShortcut(shortcut.value)"
-              @keydown.enter="selectShortcut(shortcut.value)"
+              class="p-1 hover:bg-background rounded transition-colors"
+              @click="previousMonth"
+              @keydown.enter="previousMonth"
             >
-              {{ shortcut.label }}
+              <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="text-base font-semibold text-text hover:text-primary transition-colors"
+              @click="toggleYearMonthView"
+            >
+              {{ currentMonthYear }}
+            </button>
+
+            <button
+              type="button"
+              class="p-1 hover:bg-background rounded transition-colors"
+              @click="nextMonth"
+              @keydown.enter="nextMonth"
+            >
+              <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
-        </div>
 
-        <!-- 底部操作按钮 -->
-        <div class="flex items-center justify-between px-4 py-3 border-t border-border">
-          <button
-            type="button"
-            class="px-3 py-1.5 text-sm font-medium text-text hover:text-primary transition-colors"
-            @click="selectToday"
-            @keydown.enter="selectToday"
-          >
-            今天
-          </button>
-          <button
-            type="button"
-            class="px-4 py-1.5 text-sm font-medium text-text hover:text-danger transition-colors"
-            @click="clearValue"
-            @keydown.enter="clearValue"
-          >
-            清除
-          </button>
-        </div>
+          <!-- 星期标题 -->
+          <div class="grid grid-cols-7 gap-1 px-4 py-2">
+            <div
+              v-for="day in weekDays"
+              :key="day"
+              class="text-center text-xs font-medium text-text-secondary py-1"
+            >
+              {{ day }}
+            </div>
+          </div>
+
+          <!-- 日期网格 -->
+          <div class="grid grid-cols-7 gap-1 px-4 py-2">
+            <button
+              v-for="date in calendarDates"
+              :key="date.key"
+              type="button"
+              :class="dateClasses(date)"
+              :disabled="date.disabled"
+              @click="selectDate(date)"
+              @keydown.enter="selectDate(date)"
+            >
+              {{ date.day }}
+            </button>
+          </div>
+
+          <!-- 快捷选项 -->
+          <div v-if="showShortcuts" class="border-t border-border px-4 py-3">
+            <div class="flex flex-wrap gap-2">
+              <button
+                v-for="shortcut in shortcuts"
+                :key="shortcut.label"
+                type="button"
+                class="px-3 py-1.5 text-xs font-medium rounded-lg border border-border hover:bg-primaryLight hover:text-primary hover:border-primary transition-all"
+                @click="selectShortcut(shortcut.value)"
+                @keydown.enter="selectShortcut(shortcut.value)"
+              >
+                {{ shortcut.label }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 底部操作按钮 -->
+          <div class="flex items-center justify-between px-4 py-3 border-t border-border">
+            <button
+              type="button"
+              class="px-3 py-1.5 text-sm font-medium text-text hover:text-primary transition-colors"
+              @click="selectToday"
+              @keydown.enter="selectToday"
+            >
+              今天
+            </button>
+            <button
+              type="button"
+              class="px-4 py-1.5 text-sm font-medium text-text hover:text-danger transition-colors"
+              @click="clearValue"
+              @keydown.enter="clearValue"
+            >
+              清除
+            </button>
+          </div>
+        </template>
+
+        <!-- 月份选择视图 -->
+        <template v-else-if="viewMode === 'months'">
+          <!-- 月份选择头部 -->
+          <div class="flex items-center justify-between px-4 py-3 border-b border-border">
+            <button
+              type="button"
+              class="p-1 hover:bg-background rounded transition-colors"
+              @click="previousMonth"
+              @keydown.enter="previousMonth"
+            >
+              <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="text-base font-semibold text-text hover:text-primary transition-colors"
+              @click="viewMode = 'years'"
+            >
+              {{ currentYear.value }}年
+            </button>
+
+            <button
+              type="button"
+              class="p-1 hover:bg-background rounded transition-colors"
+              @click="nextMonth"
+              @keydown.enter="nextMonth"
+            >
+              <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- 月份网格 -->
+          <div class="grid grid-cols-3 gap-2 px-4 py-4">
+            <button
+              v-for="(month, index) in months"
+              :key="month"
+              type="button"
+              :class="[
+                'px-4 py-3 text-sm font-medium rounded-lg transition-all',
+                'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+                currentMonth.value === index
+                  ? 'bg-primary text-white hover:bg-primaryHover shadow-md'
+                  : 'text-text hover:bg-background hover:text-primary'
+              ]"
+              @click="selectMonth(index)"
+              @keydown.enter="selectMonth(index)"
+            >
+              {{ month }}
+            </button>
+          </div>
+
+          <!-- 底部操作按钮 -->
+          <div class="flex items-center justify-end px-4 py-3 border-t border-border">
+            <button
+              type="button"
+              class="px-4 py-1.5 text-sm font-medium text-text hover:text-primary transition-colors"
+              @click="viewMode = 'days'"
+              @keydown.enter="viewMode = 'days'"
+            >
+              返回日视图
+            </button>
+          </div>
+        </template>
+
+        <!-- 年份选择视图 -->
+        <template v-else-if="viewMode === 'years'">
+          <!-- 年份选择头部 -->
+          <div class="flex items-center justify-between px-4 py-3 border-b border-border">
+            <button
+              type="button"
+              class="p-1 hover:bg-background rounded transition-colors"
+              @click="previousYearRange"
+              @keydown.enter="previousYearRange"
+            >
+              <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <span class="text-base font-semibold text-text">
+              {{ yearRangeStart }} - {{ yearRangeStart + 11 }}
+            </span>
+
+            <button
+              type="button"
+              class="p-1 hover:bg-background rounded transition-colors"
+              @click="nextYearRange"
+              @keydown.enter="nextYearRange"
+            >
+              <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- 年份网格 -->
+          <div class="grid grid-cols-3 gap-2 px-4 py-4">
+            <button
+              v-for="year in years"
+              :key="year"
+              type="button"
+              :class="[
+                'px-4 py-3 text-sm font-medium rounded-lg transition-all',
+                'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+                currentYear.value === year
+                  ? 'bg-primary text-white hover:bg-primaryHover shadow-md'
+                  : 'text-text hover:bg-background hover:text-primary'
+              ]"
+              @click="selectYear(year)"
+              @keydown.enter="selectYear(year)"
+            >
+              {{ year }}
+            </button>
+          </div>
+
+          <!-- 底部操作按钮 -->
+          <div class="flex items-center justify-between px-4 py-3 border-t border-border">
+            <button
+              type="button"
+              class="px-3 py-1.5 text-sm font-medium text-text hover:text-primary transition-colors"
+              @click="selectToday"
+              @keydown.enter="selectToday"
+            >
+              今天
+            </button>
+            <button
+              type="button"
+              class="px-4 py-1.5 text-sm font-medium text-text hover:text-primary transition-colors"
+              @click="backToMonths"
+              @keydown.enter="backToMonths"
+            >
+              返回月份选择
+            </button>
+          </div>
+        </template>
       </div>
     </Transition>
 
@@ -174,6 +317,8 @@ const datePickerId = ref(`date-picker-${Math.random().toString(36).substr(2, 9)}
 const isOpen = ref(false)
 const currentMonth = ref(new Date().getMonth())
 const currentYear = ref(new Date().getFullYear())
+const viewMode = ref<'days' | 'months' | 'years'>('days') // 视图模式
+const yearRangeStart = ref(Math.floor(new Date().getFullYear() / 10) * 10 - 1) // 年份范围起始（十年为单位）
 
 // 星期标题
 const weekDays = ['日', '一', '二', '三', '四', '五', '六']
@@ -189,6 +334,20 @@ const shortcuts = [
 // 计算当前显示的年月
 const currentMonthYear = computed(() => {
   return `${currentYear.value}年 ${currentMonth.value + 1}月`
+})
+
+// 月份列表
+const months = computed(() => {
+  return ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+})
+
+// 年份列表（显示当前年份范围前后的年份）
+const years = computed(() => {
+  const years = []
+  for (let i = 0; i < 12; i++) {
+    years.push(yearRangeStart.value + i)
+  }
+  return years
 })
 
 // 显示值
@@ -409,11 +568,30 @@ const clearValue = () => {
 }
 
 const toggleYearMonthView = () => {
-  // 可以扩展为年份/月份选择视图
-  // 暂时只跳转到今天所在月份
-  const today = new Date()
-  currentMonth.value = today.getMonth()
-  currentYear.value = today.getFullYear()
+  // 切换到月份选择视图
+  viewMode.value = 'months'
+}
+
+const selectMonth = (month: number) => {
+  currentMonth.value = month
+  viewMode.value = 'days'
+}
+
+const selectYear = (year: number) => {
+  currentYear.value = year
+  viewMode.value = 'months'
+}
+
+const previousYearRange = () => {
+  yearRangeStart.value -= 12
+}
+
+const nextYearRange = () => {
+  yearRangeStart.value += 12
+}
+
+const backToMonths = () => {
+  viewMode.value = 'months'
 }
 
 const handleKeydown = (event: KeyboardEvent) => {
