@@ -21,47 +21,41 @@ export const createDemoPlugin = () => {
 
     render(tokens, idx) {
       const token = tokens[idx]
-      const info = token.info.trim().match(/^demo\s*(.*)$/)
-
-      // 获取描述文字（从 token.info 中提取）
-      const description = info && info[1] ? info[1].trim() : ''
+      const m = token.info.trim().match(/^demo\s*(.*)$/)
 
       // 开始标签
       if (token.nesting === 1) {
-        // 获取示例文件路径（从容器内容中提取）
-        // 容器内容是接下来的 token
-        let demoPath = ''
-        let contentIndex = idx + 1
+        // 获取描述文字
+        const description = m && m.length > 1 ? m[1] : ''
 
-        // 查找内容 token（可能是 inline 或其他类型）
-        while (contentIndex < tokens.length && tokens[contentIndex].nesting === 0) {
-          const contentToken = tokens[contentIndex]
-          if (contentToken.type === 'inline' && contentToken.content) {
-            // 提取文件路径（通常是第一行内容）
-            const lines = contentToken.content.split('\n')
-            const firstLine = lines[0].trim()
-            // 检查是否是有效的文件路径格式（包含 / 或是简单的组件名）
-            if (firstLine && (firstLine.includes('/') || /^[a-z]+$/.test(firstLine))) {
-              demoPath = firstLine
-              break
-            }
+        // 获取源文件路径 - 参考Element Plus从 tokens[idx + 2] 获取
+        const sourceFileToken = tokens[idx + 2]
+        let sourceFile = ''
+        let source = ''
+
+        // 检查 token 类型是否为 'inline'
+        if (sourceFileToken?.type === 'inline') {
+          // 从 children 中获取文件路径
+          sourceFile = sourceFileToken.children?.[0]?.content ?? ''
+          // 移除 .vue 后缀（如果有）
+          sourceFile = sourceFile.replace(/\.vue$/, '')
+
+          // 读取示例文件内容
+          if (sourceFile) {
+            source = readDemoFile(sourceFile)
           }
-          contentIndex++
         }
 
-        // 读取示例文件内容
-        const rawSource = readDemoFile(demoPath)
-
         // 使用 markdown-it 渲染代码块，生成带高亮的 HTML
-        const highlightedSource = md.render(`\`\`\`vue\n${rawSource}\n\`\`\``)
+        const highlightedSource = md.render(`\`\`\`vue\n${source}\n\`\`\``)
 
         // 编码源代码、高亮代码和描述以便在 HTML 属性中传递
-        const encodedSource = encodeURIComponent(rawSource)
+        const encodedSource = encodeURIComponent(source)
         const encodedHighlightedSource = encodeURIComponent(highlightedSource)
         const encodedDescription = encodeURIComponent(description)
 
         // 返回 DemoContainer 组件标签
-        return `<DemoContainer path="${demoPath}" rawSource="${encodedSource}" source="${encodedHighlightedSource}" description="${encodedDescription}">`
+        return `<DemoContainer path="${sourceFile}" rawSource="${encodedSource}" source="${encodedHighlightedSource}" description="${encodedDescription}">`
       }
 
       // 结束标签

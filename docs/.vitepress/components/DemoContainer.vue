@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, resolveComponent } from 'vue'
+import { ref, computed } from 'vue'
 
 interface Props {
   source: string      // 渲染后的代码 HTML
-  path: string        // 示例文件路径
   rawSource: string   // 原始源代码（URL 编码）
   description?: string // 描述文字（URL 编码）
 }
@@ -14,16 +13,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const showCode = ref(false)
 const copySuccess = ref(false)
-
-// 转换路径为组件名（例如：button/basic -> button-basic）
-const componentName = computed(() => {
-  return props.path.replace(/\//g, '-')
-})
-
-// 动态解析组件
-const demoComponent = computed(() => {
-  return resolveComponent(componentName.value)
-})
 
 // 解码 URL 编码的源代码
 const decodedSource = computed(() => {
@@ -74,10 +63,7 @@ const copyCode = async () => {
     <!-- Demo 预览区域 -->
     <div class="demo-preview-wrapper">
       <div class="demo-preview" :class="{ 'with-padding': !showCode }">
-        <component :is="demoComponent" v-if="demoComponent && typeof demoComponent !== 'string'" />
-        <div v-else class="demo-error">
-          组件未找到: {{ componentName }}
-        </div>
+        <slot name="source" />
       </div>
 
       <!-- 操作按钮栏 -->
@@ -181,13 +167,6 @@ const copyCode = async () => {
 
 .demo-preview.with-padding {
   padding: 24px;
-}
-
-.demo-error {
-  padding: 24px;
-  color: var(--vp-c-danger-1);
-  font-size: 14px;
-  text-align: center;
 }
 
 .demo-actions {
