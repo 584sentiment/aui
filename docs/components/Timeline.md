@@ -6,28 +6,40 @@
 
 最基础的时间轴展示形式。
 
-:::demo timeline/basic.vue
+:::demo 基础用法
+
+timeline/basic
+
 :::
 
 ## 不同方向
 
 支持垂直和水平两种方向。
 
-:::demo timeline/direction.vue
+:::demo 不同方向
+
+timeline/direction
+
 :::
 
 ## 不同状态
 
 展示不同状态的时间轴节点。
 
-:::demo timeline/status.vue
+:::demo 不同状态
+
+timeline/status
+
 :::
 
 ## 自定义图标
 
 可以通过 `icon` 属性自定义每个节点的图标。
 
-:::demo timeline/icon.vue
+:::demo 自定义图标
+
+timeline/icon
+
 :::
 
 ## API

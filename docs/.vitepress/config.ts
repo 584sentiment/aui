@@ -1,27 +1,17 @@
 import { defineConfig } from 'vitepress'
-import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import mdContainer from 'markdown-it-container'
+import { createDemoPlugin } from './plugins/demo'
 import path from 'path'
 
 export default defineConfig({
   title: '@job-ai/components',
   description: 'Job-Ai 组件库文档',
   cleanUrls: true,
+  theme: path.resolve(__dirname, 'theme'),
   markdown: {
     config(md) {
-      md.use(vitepressDemoPlugin, {
-        // 指定 demo 文件所在目录,便于在文档中简化引入路径
-        demoDir: path.resolve(__dirname, '../examples'),
-
-        // 配置代码块主题
-        lightTheme: 'github-light',
-        darkTheme: 'github-dark',
-
-        // 配置 Tab 展示顺序和默认选中(只使用 Vue)
-        tabs: {
-          order: 'vue',
-          select: 'vue'
-        }
-      })
+      // 使用 markdown-it-container 和自定义 demo 插件
+      md.use(mdContainer, 'demo', createDemoPlugin())
     }
   },
   vite: {
