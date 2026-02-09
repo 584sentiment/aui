@@ -26,7 +26,7 @@ export default defineConfig({
     nav: [
       { text: '指南', link: '/guide/getting-started' },
       { text: '组件', link: '/components/Button' },
-      { text: '在线演示', link: 'http://localhost:5173/demo.html' }  // 使用绝对 URL
+      { text: '在线演示', link: '/interactive-demo.html' }
     ],
     sidebar: [
       {
