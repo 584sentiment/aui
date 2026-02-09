@@ -36,10 +36,11 @@
               :key="option.value"
               :value="option.value"
               :disabled="option.disabled"
+              as="template"
             >
               <li
                 :class="[
-                  'relative cursor-default select-none py-2 pl-3 pr-9',
+                  'relative cursor-default select-none py-2 pl-3 pr-9 list-none',
                   active ? 'bg-primaryLight text-primary' : 'text-text',
                   option.disabled && 'opacity-50 cursor-not-allowed'
                 ]"

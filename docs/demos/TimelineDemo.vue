@@ -15,9 +15,9 @@
       <Timeline :items="typedItems" />
     </div>
 
-    <h3>最新内容优先</h3>
+    <h3>不同状态</h3>
     <div class="demo-section">
-      <Timeline :items="reversedItems" reverse />
+      <Timeline :items="statusItems" />
     </div>
 
     <h3>当前时间</h3>
@@ -36,82 +36,123 @@ const currentTime = ref('')
 
 const basicItems: TimelineItem[] = [
   {
+    id: 1,
     title: '项目启动',
-    date: '2024-01-15',
+    timestamp: '2024-01-15',
     description: '项目正式启动，组建开发团队'
   },
   {
+    id: 2,
     title: '需求分析',
-    date: '2024-01-20',
+    timestamp: '2024-01-20',
     description: '完成需求收集和分析工作'
   },
   {
+    id: 3,
     title: '设计阶段',
-    date: '2024-02-01',
+    timestamp: '2024-02-01',
     description: 'UI/UX 设计完成'
   },
   {
+    id: 4,
     title: '开发阶段',
-    date: '2024-02-15',
+    timestamp: '2024-02-15',
     description: '开始核心功能开发'
   }
 ]
 
 const iconItems: TimelineItem[] = [
   {
+    id: 1,
     title: '提交代码',
-    date: '2024-03-01',
+    timestamp: '2024-03-01',
     description: '提交第一版代码',
-    type: 'success'
+    status: 'success'
   },
   {
+    id: 2,
     title: '代码审查',
-    date: '2024-03-05',
+    timestamp: '2024-03-05',
     description: '完成代码审查和修改',
-    type: 'info'
+    status: 'info'
   },
   {
+    id: 3,
     title: '测试通过',
-    date: '2024-03-10',
+    timestamp: '2024-03-10',
     description: '所有测试用例通过',
-    type: 'warning'
+    status: 'warning'
   },
   {
+    id: 4,
     title: '版本发布',
-    date: '2024-03-15',
+    timestamp: '2024-03-15',
     description: 'v1.0.0 正式发布',
-    type: 'success'
+    status: 'success'
   }
 ]
 
 const typedItems: TimelineItem[] = [
   {
+    id: 1,
     title: '收到简历',
-    date: '2024-03-20 09:00',
+    timestamp: '2024-03-20 09:00',
     description: '收到候选人简历',
-    type: 'info'
+    status: 'info'
   },
   {
+    id: 2,
     title: '初试完成',
-    date: '2024-03-20 14:00',
+    timestamp: '2024-03-20 14:00',
     description: '技术面试完成',
-    type: 'success'
+    status: 'success'
   },
   {
+    id: 3,
     title: '复试安排',
-    date: '2024-03-21 10:00',
+    timestamp: '2024-03-21 10:00',
     description: '安排复试时间',
-    type: 'warning'
+    status: 'warning'
   },
   {
+    id: 4,
     title: '发送offer',
-    date: '2024-03-22 16:00',
+    timestamp: '2024-03-22 16:00',
     description: '向候选人发送录用通知',
-    type: 'success'
+    status: 'success'
   }
 ]
 
-const reversedItems: TimelineItem[] = [...basicItems].reverse()
+const statusItems: TimelineItem[] = [
+  {
+    id: 1,
+    title: '成功状态',
+    timestamp: '2024-03-20 09:00',
+    description: '操作成功完成',
+    status: 'success'
+  },
+  {
+    id: 2,
+    title: '信息状态',
+    timestamp: '2024-03-20 10:00',
+    description: '提示信息',
+    status: 'info'
+  },
+  {
+    id: 3,
+    title: '警告状态',
+    timestamp: '2024-03-20 11:00',
+    description: '需要注意的警告',
+    status: 'warning'
+  },
+  {
+    id: 4,
+    title: '危险状态',
+    timestamp: '2024-03-20 12:00',
+    description: '错误或失败的操作',
+    status: 'danger'
+  }
+]
 
 const updateTime = () => {
   const now = new Date()

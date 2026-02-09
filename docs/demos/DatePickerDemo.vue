@@ -6,6 +6,7 @@
         v-model="date1"
         label="选择日期"
         placeholder="请选择日期"
+        :show-shortcuts="false"
       />
     </div>
 

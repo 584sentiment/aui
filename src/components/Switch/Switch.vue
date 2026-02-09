@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<SwitchProps>(), {
 const emit = defineEmits<SwitchEmits>()
 
 const switchClasses = computed(() => {
-  const base = 'relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+  const base = 'relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 items-center justify-center'
   const sizeClasses = {
     sm: 'h-5 w-9',
     md: 'h-6 w-11',
@@ -44,11 +44,11 @@ const switchClasses = computed(() => {
 })
 
 const sliderClasses = computed(() => {
-  const base = 'pointer-events-none inline-block rounded-full bg-white shadow transform transition-transform duration-200 ease-in-out'
+  const base = 'pointer-events-none absolute rounded-full bg-white shadow transform transition-transform duration-200 ease-in-out top-1/2 -translate-y-1/2'
   const sizeClasses = {
-    sm: 'h-4 w-4 translate-x-0',
-    md: 'h-5 w-5 translate-x-0',
-    lg: 'h-6 w-6 translate-x-0'
+    sm: 'h-4 w-4 left-0.5',
+    md: 'h-5 w-5 left-0.5',
+    lg: 'h-6 w-6 left-0.5'
   }
   const translateClasses = props.modelValue ? {
     sm: 'translate-x-4',
@@ -60,7 +60,7 @@ const sliderClasses = computed(() => {
     lg: 'translate-x-0'
   }
 
-  return [base, sizeClasses[props.size].split(' ')[0], sizeClasses[props.size].split(' ')[1], translateClasses[props.size]].filter(Boolean).join(' ')
+  return [base, sizeClasses[props.size], translateClasses[props.size]].filter(Boolean).join(' ')
 })
 
 const toggle = () => {

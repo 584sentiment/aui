@@ -1,5 +1,5 @@
 <template>
-  <div class="date-picker-wrapper relative">
+  <div ref="wrapperRef" class="date-picker-wrapper relative">
     <label v-if="label" :for="datePickerId" class="block text-sm font-medium text-text mb-1">
       {{ label }}
     </label>
@@ -306,12 +306,13 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
   placeholder: '请选择日期',
   disabled: false,
   format: 'YYYY-MM-DD',
-  showShortcuts: true,
+  showShortcuts: false,
   showClearButton: true
 })
 
 const emit = defineEmits<DatePickerEmits>()
 
+const wrapperRef = ref<HTMLElement | null>(null)
 const datePickerId = ref(`date-picker-${Math.random().toString(36).substr(2, 9)}`)
 const isOpen = ref(false)
 const currentMonth = ref(new Date().getMonth())
@@ -608,9 +609,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 // 点击外部关闭
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as Node
-  const wrapper = document.querySelector(`#${datePickerId}`)?.closest('.date-picker-wrapper')
-
-  if (wrapper && !wrapper.contains(target) && isOpen.value) {
+  if (wrapperRef.value && !wrapperRef.value.contains(target) && isOpen.value) {
     closePopover()
   }
 }
