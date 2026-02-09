@@ -167,3 +167,77 @@ import { ComponentName } from '@job-ai/components'
 - **输出目录**: `dist/`
 - **TypeScript 声明**: 使用 `vue-tsc --emitDeclarationOnly` 生成
 - **外部依赖**: 不打包 vue、headlessui、vuelidate
+
+
+## 文档管理规范
+
+### 🚨 重要纪律
+
+1. **禁止随意添加文档**
+   - 不要在根目录添加 `xxx指南.md`、`xxx说明.md`、`xxx教程.md`
+   - 不要创建无用的 README 或临时文档后不删除
+
+2. **保持目录整洁**
+   - 根目录只保留必要的配置文件和指向 `.docs/` 的说明
+   - 临时文档必须在完成任务后立即删除
+
+3. **工作记录分类输出**
+   - 所有开发记录必须输出到 `.docs/` 目录下的对应文档
+   - 不得随意创建新的记录文档
+
+### 文档分类说明
+
+项目文档统一存放在 `.docs/` 目录，按以下分类：
+
+| 文档                    | 用途         | 使用场景                         |
+| ----------------------- | ------------ | -------------------------------- |
+| `.docs/arch-design.md`  | 架构设计文档 | 记录架构决策、设计思路、技术选型 |
+| `.docs/dev-progress.md` | 开发进度文档 | 记录每次功能开发完成情况         |
+| `.docs/bug-fix.md`      | 问题修复日志 | 记录遇到的 Bug 和解决方案        |
+
+**文档更新原则**：
+
+- 尽量使用现有文档文件，不要创建新的
+- 每次更新必须标注时间（YYYY-MM-DD）
+- 保持简洁，使用清晰的章节结构
+
+### 临时文档处理
+
+**开发过程中**：
+
+- 可以创建临时文档（如 `TODO.md`、`test.md`）
+- 但必须在完成任务后立即删除
+
+## Git 提交规范
+
+每个功能实现完成后必须进行 commit。
+
+**Commit Message 格式**：
+
+```
+<类型>: <模块>/<功能>: <简要描述>
+```
+
+**示例**：
+
+- `feat: backend/api/positions: 实现岗位收藏功能`
+- `feat: web/views/JobDetail: 添加收藏按钮`
+- `fix: backend/auth: 修复 JWT 验证中间件问题`
+- `refactor: packages/shared/types: 统一岗位字段命名`
+- `docs: 更新开发进度文档`
+
+**Commit 类型**：
+
+- `feat`: 新功能
+- `fix`: Bug 修复
+- `refactor`: 代码重构
+- `docs`: 文档更新
+- `test`: 测试相关
+- `chore`: 构建/工具链相关
+- `opt`: 优化
+
+**Commit 后操作**：
+
+1. 更新 `/docs/dev-progress.md`（记录功能完成情况）
+2. 如有设计变更，更新 `/docs/arch-design.md`
+3. 如遇到问题，记录到 `/docs/bug-fix.md`
