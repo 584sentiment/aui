@@ -4,9 +4,7 @@
 
 ## 基础用法
 
-最基础的时间轴展示形式。
-
-:::demo 基础用法
+:::demo 最基础的时间轴展示形式
 
 timeline/basic
 
@@ -14,9 +12,7 @@ timeline/basic
 
 ## 不同方向
 
-支持垂直和水平两种方向。
-
-:::demo 不同方向
+:::demo 支持垂直和水平两种方向
 
 timeline/direction
 
@@ -24,9 +20,7 @@ timeline/direction
 
 ## 不同状态
 
-展示不同状态的时间轴节点。
-
-:::demo 不同状态
+:::demo 支持多种状态样式
 
 timeline/status
 
@@ -34,9 +28,7 @@ timeline/status
 
 ## 自定义图标
 
-可以通过 `icon` 属性自定义每个节点的图标。
-
-:::demo 自定义图标
+:::demo 自定义时间轴节点图标
 
 timeline/icon
 
@@ -49,18 +41,19 @@ timeline/icon
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | items | 时间轴数据 | `TimelineItem[]` | - |
-| direction | 方向 | `'vertical' \| 'horizontal'` | `'vertical'` |
-| size | 尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| direction | 排列方向 | `'vertical' \| 'horizontal'` | `'vertical'` |
 
 ### TimelineItem 类型
 
 ```typescript
+type TimelineStatus = 'success' | 'info' | 'warning' | 'error'
+
 interface TimelineItem {
-  id: string | number          // 唯一标识
-  title: string               // 标题
-  description?: string         // 描述文本
-  timestamp?: string           // 时间戳
-  status?: 'success' | 'warning' | 'danger' | 'info'  // 状态
-  icon?: string               // 图标 HTML
+  title: string           // 标题
+  description?: string    // 描述
+  timestamp?: string      // 时间戳
+  status?: TimelineStatus // 状态
+  icon?: string           // 图标（使用图标名称）
+  id?: string | number    // 唯一标识
 }
 ```

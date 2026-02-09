@@ -54,8 +54,13 @@ export const createDemoPlugin = () => {
         const encodedHighlightedSource = encodeURIComponent(highlightedSource)
         const encodedDescription = encodeURIComponent(description)
 
-        // 返回 DemoContainer 组件标签
-        return `<DemoContainer path="${sourceFile}" rawSource="${encodedSource}" source="${encodedHighlightedSource}" description="${encodedDescription}">`
+        // 将路径转换为组件名（button/basic -> button-basic）
+        const componentName = sourceFile.replace(/\//g, '-')
+
+        // 返回 DemoContainer 组件标签，包含 slot 内容
+        // 参考 Element Plus 的实现，使用换行符确保格式正确
+        return `<DemoContainer path="${sourceFile}" rawSource="${encodedSource}" source="${encodedHighlightedSource}" description="${encodedDescription}">
+  <template #source><${componentName}/></template>`
       }
 
       // 结束标签

@@ -4,175 +4,42 @@
 
 ## 基础用法
 
-基础的输入框用法。
+:::demo 基础的输入框用法
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+input/basic
 
-const username = ref('')
-</script>
-
-<template>
-  <Input
-    v-model="username"
-    label="用户名"
-    placeholder="请输入用户名"
-  />
-</template>
-```
 :::
 
 ## 不同类型
 
-支持多种原生输入框类型，包括 text、password、email、number 等。
+:::demo 支持多种原生输入框类型
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+input/types
 
-const value = ref('')
-const email = ref('')
-const password = ref('')
-const age = ref('')
-</script>
-
-<template>
-  <div class="space-y-4">
-    <!-- 文本输入 -->
-    <Input type="text" v-model="value" label="文本" />
-
-    <!-- 邮箱输入 -->
-    <Input type="email" v-model="email" label="邮箱" placeholder="example@email.com" />
-
-    <!-- 密码输入 -->
-    <Input type="password" v-model="password" label="密码" />
-
-    <!-- 数字输入 -->
-    <Input type="number" v-model="age" label="年龄" :min="0" :max="120" />
-  </div>
-</template>
-```
 :::
 
 ## 带验证
 
-通过 `error` 属性设置错误提示信息。
+:::demo 通过 error 属性设置错误提示
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+input/validation
 
-const email = ref('')
-const emailError = ref('')
-
-const validateEmail = () => {
-  if (!email.value) {
-    emailError.value = '请输入邮箱'
-  } else if (!/.+@.+\..+/.test(email.value)) {
-    emailError.value = '请输入有效的邮箱'
-  } else {
-    emailError.value = ''
-  }
-}
-</script>
-
-<template>
-  <Input
-    v-model="email"
-    type="email"
-    label="邮箱"
-    placeholder="请输入邮箱"
-    :error="emailError"
-    @blur="validateEmail"
-  />
-</template>
-```
 :::
 
 ## 禁用和只读
 
-通过 `disabled` 和 `readonly` 属性设置输入框的禁用和只读状态。
+:::demo 禁用和只读状态
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+input/disabled
 
-const disabledValue = ref('禁用的内容')
-const readonlyValue = ref('只读的内容')
-</script>
-
-<template>
-  <div class="space-y-4">
-    <!-- 禁用状态 -->
-    <Input
-      v-model="disabledValue"
-      label="禁用的输入框"
-      disabled
-    />
-
-    <!-- 只读状态 -->
-    <Input
-      v-model="readonlyValue"
-      label="只读的输入框"
-      readonly
-    />
-  </div>
-</template>
-```
 :::
 
 ## 尺寸
 
-提供三种尺寸：`sm`、`md`、`lg`。
+:::demo 三种尺寸：sm、md、lg
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+input/size
 
-const smallValue = ref('')
-const mediumValue = ref('')
-const largeValue = ref('')
-</script>
-
-<template>
-  <div class="space-y-4">
-    <!-- 小尺寸 -->
-    <Input
-      v-model="smallValue"
-      label="小尺寸"
-      size="sm"
-      placeholder="小尺寸输入框"
-    />
-
-    <!-- 中等尺寸 -->
-    <Input
-      v-model="mediumValue"
-      label="中等尺寸"
-      size="md"
-      placeholder="中等尺寸输入框"
-    />
-
-    <!-- 大尺寸 -->
-    <Input
-      v-model="largeValue"
-      label="大尺寸"
-      size="lg"
-      placeholder="大尺寸输入框"
-    />
-  </div>
-</template>
-```
 :::
 
 ## API

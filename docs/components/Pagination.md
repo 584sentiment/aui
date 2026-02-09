@@ -4,16 +4,18 @@
 
 ## 基础用法
 
-基础的分页展示。
+:::demo 基础的分页展示
 
-:::demo pagination/basic
+pagination/basic
+
 :::
 
 ## 事件监听
 
-监听页码变化事件。
+:::demo 监听页码变化事件
 
-:::demo pagination/event
+pagination/event
+
 :::
 
 ## API
@@ -22,16 +24,17 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| currentPage | 当前页码 | `number` | `1` |
-| totalPages | 总页数 | `number` | - |
+| modelValue | 当前页码 | `number` | `1` |
+| total | 总条数 | `number` | - |
 | pageSize | 每页条数 | `number` | `10` |
+| pageSizes | 每页条数选项 | `number[]` | `[10, 20, 50, 100]` |
+| showSizeChanger | 显示每页条数选择器 | `boolean` | `false` |
 | showTotal | 显示总条数 | `boolean` | `false` |
-| simple | 简洁模式 | `boolean` | `false` |
 | disabled | 是否禁用 | `boolean` | `false` |
 
 ### Events
 
 | 事件名 | 说明 | 参数 |
 |--------|------|------|
-| update:currentPage | 页码改变 | `page: number` |
-| change | 页码改变 | `page: number` |
+| update:modelValue | 页码改变 | `page: number` |
+| update:pageSize | 每页条数改变 | `pageSize: number` |

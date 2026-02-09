@@ -6,31 +6,51 @@
 
 基础的下拉选择器用法。
 
-:::demo select/basic.vue
+:::demo 基础的下拉选择器用法
+
+select/basic
+
+:::
 
 ## 带错误提示
 
 显示错误提示的选择器。
 
-:::demo select/error.vue
+:::demo 显示错误提示的选择器
+
+select/error
+
+:::
 
 ## 禁用选项
 
 选项可以设置为禁用状态。
 
-:::demo select/disabled.vue
+:::demo 选项可以设置为禁用状态
+
+select/disabled
+
+:::
 
 ## 多个选项
 
 展示更多选项的选择器。
 
-:::demo select/options.vue
+:::demo 展示更多选项的选择器
+
+select/options
+
+:::
 
 ## 选项分组
 
 通过 label 前缀实现视觉分组效果。
 
-:::demo select/groups.vue
+:::demo 通过 label 前缀实现视觉分组效果
+
+select/groups
+
+:::
 
 ## API
 

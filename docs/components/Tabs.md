@@ -4,17 +4,26 @@
 
 ## 基础用法
 
-:::demo tabs/basic
+:::demo 基础的标签页用法
+
+tabs/basic
+
 :::
 
 ## 线条样式
 
-:::demo tabs/line
+:::demo 线条样式的标签页
+
+tabs/line
+
 :::
 
 ## 卡片样式
 
-:::demo tabs/card
+:::demo 卡片样式的标签页
+
+tabs/card
+
 :::
 
 ## API
@@ -23,18 +32,17 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| modelValue | 当前激活的标签 | `string` | - |
-| items | 标签页数组 | `TabItem[]` | - |
-| variant | 样式类型 | `'line' \| 'card'` | `'line'` |
+| modelValue | 绑定值 | `string \| number` | - |
+| type | 标签页类型 | `'line' \| 'card'` | `'line'` |
+| tabs | 标签页选项 | `Tab[]` | - |
 
-### TabItem 类型
+### Tab 类型
 
 ```typescript
-interface TabItem {
-  label: string          // 标签文本
-  value: string          // 标签值
-  disabled?: boolean     // 是否禁用
-  icon?: string          // 图标 HTML
+interface Tab {
+  label: string      // 标签文本
+  value: string | number  // 标签值
+  disabled?: boolean  // 是否禁用
 }
 ```
 
@@ -42,5 +50,4 @@ interface TabItem {
 
 | 事件名 | 说明 | 参数 |
 |--------|------|------|
-| update:modelValue | 标签切换 | `value: string` |
-| change | 标签改变 | `value: string` |
+| update:modelValue | 值更新 | `value: string \| number` |

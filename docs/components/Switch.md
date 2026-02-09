@@ -4,65 +4,26 @@
 
 ## 基础用法
 
-:::demo
-```vue
-<script setup>
-import { Switch } from '@job-ai/components'
-</script>
+:::demo 基础的开关用法
 
-<template>
-  <Switch label="启用通知" />
-</template>
-```
+switch/basic
+
 :::
 
 ## 不同状态
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Switch } from '@job-ai/components'
+:::demo 开关的不同状态
 
-const value1 = ref(false)
-const value2 = ref(true)
-const value3 = ref(false)
-</script>
+switch/disabled
 
-<template>
-  <div class="space-y-4">
-    <!-- 关闭状态 -->
-    <Switch v-model="value1" label="关闭" />
-
-    <!-- 开启状态 -->
-    <Switch v-model="value2" label="开启" />
-
-    <!-- 禁用状态 -->
-    <Switch v-model="value3" label="禁用" :disabled="true" />
-  </div>
-</template>
-```
 :::
 
 ## 尺寸
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Switch } from '@job-ai/components'
+:::demo 不同尺寸的开关
 
-const value1 = ref(false)
-const value2 = ref(false)
-</script>
+switch/size
 
-<template>
-  <div class="space-y-4">
-    <Switch v-model="value1" label="小尺寸" size="sm" />
-    <Switch v-model="value2" label="默认尺寸" />
-  </div>
-</template>
-```
 :::
 
 ## API
@@ -75,6 +36,7 @@ const value2 = ref(false)
 | disabled | 是否禁用 | `boolean` | `false` |
 | label | 标签文本 | `string` | - |
 | name | 表单名称 | `string` | - |
+| size | 尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
 
 ### Events
 

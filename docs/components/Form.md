@@ -4,12 +4,14 @@
 
 ## 基础用法
 
-:::demo form/basic.vue
+:::demo 基础用法
+form/basic
 :::
 
 ## 表单验证
 
-:::demo form/validation.vue
+:::demo 表单验证
+form/validation
 :::
 
 ## API

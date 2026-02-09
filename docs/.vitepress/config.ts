@@ -8,6 +8,7 @@ export default defineConfig({
   description: 'Job-Ai 组件库文档',
   cleanUrls: true,
   theme: path.resolve(__dirname, 'theme'),
+  ignoreDeadLinks: true,  // 忽略死链检查
   markdown: {
     config(md) {
       // 使用 markdown-it-container 和自定义 demo 插件

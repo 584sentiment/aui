@@ -4,120 +4,42 @@
 
 ## 基础用法
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { DatePicker } from '@job-ai/components'
+:::demo 基础的日期选择器用法
 
-const birthday = ref('')
-</script>
+datepicker/basic
 
-<template>
-  <DatePicker
-    v-model="birthday"
-    label="生日"
-    placeholder="请选择日期"
-  />
-</template>
-```
 :::
 
 ## 不同格式
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { DatePicker } from '@job-ai/components'
+:::demo 支持多种日期格式
 
-const date1 = ref('')
-const date2 = ref('')
-</script>
+datepicker/format
 
-<template>
-  <div style="display: flex; flex-direction: column; gap: 1rem;">
-    <DatePicker
-      v-model="date1"
-      label="YYYY/MM/DD 格式"
-      format="YYYY/MM/DD"
-      placeholder="请选择日期"
-    />
-    <DatePicker
-      v-model="date2"
-      label="YYYY-MM-DD 格式"
-      format="YYYY-MM-DD"
-      placeholder="请选择日期"
-    />
-  </div>
-</template>
-```
 :::
 
 ## 快捷选项
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { DatePicker } from '@job-ai/components'
+:::demo 显示快捷选项面板
 
-const date = ref('')
-</script>
+datepicker/shortcuts
 
-<template>
-  <DatePicker
-    v-model="date"
-    label="带快捷选项"
-    :show-shortcuts="true"
-    placeholder="请选择日期"
-  />
-</template>
-```
 :::
 
 ## 禁用清除按钮
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { DatePicker } from '@job-ai/components'
+:::demo 禁用清除按钮
 
-const date = ref(new Date())
-</script>
+datepicker/clearable
 
-<template>
-  <DatePicker
-    v-model="date"
-    label="无清除按钮"
-    :show-clear-button="false"
-    placeholder="请选择日期"
-  />
-</template>
-```
 :::
 
 ## 日期范围限制
 
-:::demo
-```vue
-<script setup>
-import { ref } from 'vue'
-import { DatePicker } from '@job-ai/components'
+:::demo 限制可选择的日期范围
 
-const date = ref('')
-</script>
+datepicker/range
 
-<template>
-  <DatePicker
-    v-model="date"
-    label="限制范围(不能选择未来日期)"
-    :max-date="new Date()"
-    placeholder="请选择日期"
-  />
-</template>
-```
 :::
 
 ## API
