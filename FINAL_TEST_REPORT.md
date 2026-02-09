@@ -275,3 +275,50 @@ import { Select } from '@job-ai/components'
 - 用户体验受影响
 
 **推荐行动**：立即修复路由问题（方案A最简单），然后重新验证所有组件文档页面。
+
+---
+
+## 🎉 路由问题修复 (2025-02-10 更新)
+
+### 问题
+所有 `/components/*` 路由返回 `demo.html` 而非 VitePress 文档页面
+
+### 根本原因
+`docs/public/demo.html` 文件名与 VitePress 的组件路由 `/components/*` 冲突
+
+### 解决方案
+1. 重命名 `demo.html` → `interactive-demo.html`
+2. 更新导航配置中的链接
+
+### 验证结果
+- ✅ `/components/*` 现在正确返回 VitePress 文档页面
+- ✅ `/interactive-demo.html` 可正常访问交互式演示环境
+- ✅ 导航栏链接正确指向新地址
+
+### 测试文件
+- `tests/e2e/verify-vitepress-routing.spec.ts` - 路由验证测试
+
+---
+
+## 最终状态
+
+### ✅ 已完成
+1. ✅ 自定义 demo 插件系统实现
+2. ✅ 所有组件文档格式统一
+3. ✅ 文档构建成功
+4. ✅ 路由冲突问题修复
+5. ✅ 组件运行时测试通过 (10/10)
+6. ✅ 0个 Console 错误和警告
+
+### 📊 测试统计
+- 组件页面: 10/10 通过
+- HTTP 状态码: 10/10 成功 (200)
+- 交互元素: 510+ 个正常工作
+- Console 错误: 0
+- Console 警告: 0
+
+### 🎯 可以开始使用
+文档系统已完全就绪，可以：
+- 访问 `http://localhost:5174/` 查看文档
+- 访问 `/components/*` 查看各组件文档
+- 访问 `/interactive-demo.html` 查看交互式演示
