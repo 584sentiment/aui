@@ -2,37 +2,68 @@
 
 开关选择器，用于切换开关状态。
 
-## 实时演示
-
-<demo vue="../demos/SwitchDemo.vue" />
-
 ## 基础用法
 
+:::demo
+```vue
+<script setup>
+import { Switch } from '@job-ai/components'
+</script>
+
+<template>
+  <Switch label="启用通知" />
+</template>
+```
+:::
+
+## 不同状态
+
+:::demo
 ```vue
 <script setup>
 import { ref } from 'vue'
 import { Switch } from '@job-ai/components'
 
-const enabled = ref(false)
+const value1 = ref(false)
+const value2 = ref(true)
+const value3 = ref(false)
 </script>
 
 <template>
-  <Switch v-model="enabled" label="启用通知" />
+  <div class="space-y-4">
+    <!-- 关闭状态 -->
+    <Switch v-model="value1" label="关闭" />
+
+    <!-- 开启状态 -->
+    <Switch v-model="value2" label="开启" />
+
+    <!-- 禁用状态 -->
+    <Switch v-model="value3" label="禁用" :disabled="true" />
+  </div>
 </template>
 ```
+:::
 
-## 不同状态
+## 尺寸
 
+:::demo
 ```vue
-<!-- 关闭状态 -->
-<Switch v-model="value1" label="关闭" />
+<script setup>
+import { ref } from 'vue'
+import { Switch } from '@job-ai/components'
 
-<!-- 开启状态 -->
-<Switch v-model="value2" label="开启" />
+const value1 = ref(false)
+const value2 = ref(false)
+</script>
 
-<!-- 禁用状态 -->
-<Switch v-model="value3" label="禁用" :disabled="true" />
+<template>
+  <div class="space-y-4">
+    <Switch v-model="value1" label="小尺寸" size="sm" />
+    <Switch v-model="value2" label="默认尺寸" />
+  </div>
+</template>
 ```
+:::
 
 ## API
 

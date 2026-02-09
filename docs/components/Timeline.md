@@ -1,86 +1,34 @@
 # Timeline 时间轴
 
-时间轴组件，用于展示时间序列信息。
-
-## 实时演示
-
-<demo vue="../demos/TimelineDemo.vue" />
+时间轴组件,用于展示时间序列信息。
 
 ## 基础用法
 
-```vue
-<script setup>
-import { Timeline } from '@job-ai/components'
+最基础的时间轴展示形式。
 
-const items = [
-  {
-    id: 1,
-    title: '项目启动',
-    description: 'Job-Ai 组件库项目正式启动',
-    timestamp: '2026-02-08 10:00',
-    status: 'success'
-  },
-  {
-    id: 2,
-    title: '设计系统',
-    description: '完成设计令牌和主题配置',
-    timestamp: '2026-02-08 12:00',
-    status: 'success'
-  },
-  {
-    id: 3,
-    title: '组件开发',
-    description: '完成 10 个核心组件开发',
-    timestamp: '2026-02-08 14:00',
-    status: 'info'
-  },
-  {
-    id: 4,
-    title: '测试验证',
-    description: '进行组件测试和验证',
-    timestamp: '2026-02-08 16:00',
-    status: 'warning'
-  }
-]
-</script>
-
-<template>
-  <Timeline :items="items" />
-</template>
-```
+:::demo timeline/basic.vue
+:::
 
 ## 不同方向
 
-```vue
-<!-- 垂直时间轴 -->
-<Timeline :items="items" direction="vertical" />
+支持垂直和水平两种方向。
 
-<!-- 水平时间轴 -->
-<Timeline :items="items" direction="horizontal" />
-```
+:::demo timeline/direction.vue
+:::
 
 ## 不同状态
 
-```vue
-const items = [
-  { title: '成功', status: 'success' },
-  { title: '信息', status: 'info' },
-  { title: '警告', status: 'warning' },
-  { title: '危险', status: 'danger' }
-]
-```
+展示不同状态的时间轴节点。
+
+:::demo timeline/status.vue
+:::
 
 ## 自定义图标
 
-```vue
-const items = [
-  {
-    title: '带有图标',
-    status: 'success',
-    icon: '<svg>...</svg>' // HTML 字符串
-  }
-]
-```
+可以通过 `icon` 属性自定义每个节点的图标。
+
+:::demo timeline/icon.vue
+:::
 
 ## API
 

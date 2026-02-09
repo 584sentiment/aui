@@ -9,7 +9,18 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.use(vitepressDemoPlugin, {
-        // 插件配置
+        // 指定 demo 文件所在目录,便于在文档中简化引入路径
+        demoDir: path.resolve(__dirname, '../examples'),
+
+        // 配置代码块主题
+        lightTheme: 'github-light',
+        darkTheme: 'github-dark',
+
+        // 配置 Tab 展示顺序和默认选中(只使用 Vue)
+        tabs: {
+          order: 'vue',
+          select: 'vue'
+        }
       })
     }
   },

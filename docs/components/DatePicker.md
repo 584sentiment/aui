@@ -1,13 +1,10 @@
 # DatePicker 日期选择器
 
-日期选择组件，支持日期、时间等类型。
-
-## 实时演示
-
-<demo vue="../demos/DatePickerDemo.vue" />
+日期选择组件,支持日期、时间等类型。
 
 ## 基础用法
 
+:::demo
 ```vue
 <script setup>
 import { ref } from 'vue'
@@ -20,41 +17,108 @@ const birthday = ref('')
   <DatePicker
     v-model="birthday"
     label="生日"
-    type="date"
     placeholder="请选择日期"
   />
 </template>
 ```
+:::
 
-## 不同类型
+## 不同格式
 
+:::demo
 ```vue
-<!-- 日期选择 -->
-<DatePicker v-model="date" type="date" label="日期" />
+<script setup>
+import { ref } from 'vue'
+import { DatePicker } from '@job-ai/components'
 
-<!-- 日期时间选择 -->
-<DatePicker v-model="datetime" type="datetime" label="日期时间" />
+const date1 = ref('')
+const date2 = ref('')
+</script>
 
-<!-- 时间选择 -->
-<DatePicker v-model="time" type="time" label="时间" />
-
-<!-- 月份选择 -->
-<DatePicker v-model="month" type="month" label="月份" />
-
-<!-- 年份选择 -->
-<DatePicker v-model="year" type="year" label="年份" />
+<template>
+  <div style="display: flex; flex-direction: column; gap: 1rem;">
+    <DatePicker
+      v-model="date1"
+      label="YYYY/MM/DD 格式"
+      format="YYYY/MM/DD"
+      placeholder="请选择日期"
+    />
+    <DatePicker
+      v-model="date2"
+      label="YYYY-MM-DD 格式"
+      format="YYYY-MM-DD"
+      placeholder="请选择日期"
+    />
+  </div>
+</template>
 ```
+:::
 
-## 限制范围
+## 快捷选项
 
+:::demo
 ```vue
-<DatePicker
-  v-model="date"
-  label="选择日期"
-  :min-date="new Date()"
-  :max-date="new Date('2026-12-31')"
-/>
+<script setup>
+import { ref } from 'vue'
+import { DatePicker } from '@job-ai/components'
+
+const date = ref('')
+</script>
+
+<template>
+  <DatePicker
+    v-model="date"
+    label="带快捷选项"
+    :show-shortcuts="true"
+    placeholder="请选择日期"
+  />
+</template>
 ```
+:::
+
+## 禁用清除按钮
+
+:::demo
+```vue
+<script setup>
+import { ref } from 'vue'
+import { DatePicker } from '@job-ai/components'
+
+const date = ref(new Date())
+</script>
+
+<template>
+  <DatePicker
+    v-model="date"
+    label="无清除按钮"
+    :show-clear-button="false"
+    placeholder="请选择日期"
+  />
+</template>
+```
+:::
+
+## 日期范围限制
+
+:::demo
+```vue
+<script setup>
+import { ref } from 'vue'
+import { DatePicker } from '@job-ai/components'
+
+const date = ref('')
+</script>
+
+<template>
+  <DatePicker
+    v-model="date"
+    label="限制范围(不能选择未来日期)"
+    :max-date="new Date()"
+    placeholder="请选择日期"
+  />
+</template>
+```
+:::
 
 ## API
 
@@ -72,6 +136,8 @@ const birthday = ref('')
 | minDate | 最小日期 | `Date` | - |
 | maxDate | 最大日期 | `Date` | - |
 | disabledDates | 禁用日期 | `Date[]` | - |
+| showShortcuts | 显示快捷选项 | `boolean` | `true` |
+| showClearButton | 显示清除按钮 | `boolean` | `true` |
 
 ### Events
 

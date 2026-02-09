@@ -2,83 +2,15 @@
 
 表单容器组件，提供表单验证功能。
 
-## 实时演示
-
-<demo vue="../demos/FormDemo.vue" />
-
 ## 基础用法
 
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Form, FormField, Input, Button } from '@job-ai/components'
-
-const formData = ref({
-  username: '',
-  email: ''
-})
-
-const handleSubmit = () => {
-  console.log('表单提交:', formData.value)
-}
-</script>
-
-<template>
-  <Form :model="formData" @submit="handleSubmit">
-    <FormField label="用户名" name="username">
-      <Input v-model="formData.username" placeholder="请输入用户名" />
-    </FormField>
-
-    <FormField label="邮箱" name="email">
-      <Input v-model="formData.email" type="email" placeholder="请输入邮箱" />
-    </FormField>
-
-    <Button type="submit" variant="primary">提交</Button>
-  </Form>
-</template>
-```
+:::demo form/basic.vue
+:::
 
 ## 表单验证
 
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Form, FormField, Input, Button } from '@job-ai/components'
-
-const rules = {
-  username: {
-    required: true,
-    minLength: 3
-  },
-  email: {
-    required: true,
-    email: true
-  }
-}
-</script>
-
-<template>
-  <Form :model="formData" :rules="rules">
-    <FormField
-      label="用户名"
-      name="username"
-      :rules="rules.username"
-    >
-      <Input v-model="formData.username" />
-    </FormField>
-
-    <FormField
-      label="邮箱"
-      name="email"
-      :rules="rules.email"
-    >
-      <Input v-model="formData.email" type="email" />
-    </FormField>
-
-    <Button type="submit">提交</Button>
-  </Form>
-</template>
-```
+:::demo form/validation.vue
+:::
 
 ## API
 

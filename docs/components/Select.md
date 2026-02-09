@@ -1,60 +1,36 @@
 # Select 选择器
 
-下拉选择器，用于从选项中选择一个。
-
-## 实时演示
-
-<demo vue="../demos/SelectDemo.vue" />
+下拉选择器,用于从选项中选择一个。
 
 ## 基础用法
 
-```vue
-<script setup>
-import { ref } from 'vue'
-import { Select } from '@job-ai/components'
+基础的下拉选择器用法。
 
-const city = ref('')
-const options = [
-  { label: '北京', value: 'beijing' },
-  { label: '上海', value: 'shanghai' },
-  { label: '广州', value: 'guangzhou' },
-  { label: '深圳', value: 'shenzhen' }
-]
-</script>
-
-<template>
-  <Select
-    v-model="city"
-    label="城市"
-    placeholder="请选择城市"
-    :options="options"
-  />
-</template>
-```
+:::demo select/basic.vue
 
 ## 带错误提示
 
-```vue
-<Select
-  v-model="value"
-  label="角色"
-  :options="options"
-  error="请选择一个角色"
-/>
-```
+显示错误提示的选择器。
+
+:::demo select/error.vue
 
 ## 禁用选项
 
-```vue
-<Select
-  v-model="value"
-  :options="[
-    { label: '选项一', value: '1' },
-    { label: '选项二（禁用）', value: '2', disabled: true },
-    { label: '选项三', value: '3' }
-  ]"
-/>
-```
+选项可以设置为禁用状态。
+
+:::demo select/disabled.vue
+
+## 多个选项
+
+展示更多选项的选择器。
+
+:::demo select/options.vue
+
+## 选项分组
+
+通过 label 前缀实现视觉分组效果。
+
+:::demo select/groups.vue
 
 ## API
 

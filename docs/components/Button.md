@@ -2,56 +2,65 @@
 
 基础按钮组件，支持多种样式和尺寸。
 
-## 实时演示
-
-<demo vue="../demos/ButtonDemo.vue" />
-
 ## 基础用法
 
-```vue
-<script setup>
-import { Button } from '@job-ai/components'
-</script>
+基础的按钮用法。
 
-<template>
-  <Button variant="primary">主要按钮</Button>
-  <Button variant="secondary">次要按钮</Button>
-  <Button variant="outline">轮廓按钮</Button>
-  <Button variant="ghost">幽灵按钮</Button>
-</template>
-```
+:::demo 不同样式的按钮
+
+button/basic
+
+:::
 
 ## 不同尺寸
 
-```vue
-<Button size="sm" variant="primary">小按钮</Button>
-<Button size="md" variant="primary">中按钮</Button>
-<Button size="lg" variant="primary">大按钮</Button>
-```
+Button 组件提供了三种尺寸：`sm`、`md`、`lg`。
+
+:::demo 不同尺寸的按钮
+
+button/size
+
+:::
 
 ## 禁用状态
 
-```vue
-<Button disabled>禁用按钮</Button>
-```
+按钮可以设置为禁用状态。
+
+:::demo 禁用的按钮
+
+button/disabled
+
+:::
 
 ## 加载状态
 
-```vue
-<Button loading>加载中...</Button>
-```
+点击按钮后可以显示加载状态。
+
+:::demo 加载中的按钮
+
+button/loading
+
+:::
 
 ## 块级按钮
 
-```vue
-<Button block>块级按钮</Button>
-```
+`block` 属性将使按钮宽度变为父容器的 100%。
+
+:::demo 块级按钮
+
+button/block
+
+:::
 
 ## 危险按钮
 
-```vue
-<Button variant="danger">删除</Button>
-```
+用于危险操作的按钮，如删除。
+
+:::demo 危险按钮
+
+button/variant
+
+:::
 
 ## API
 
