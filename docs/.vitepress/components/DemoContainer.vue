@@ -248,6 +248,22 @@ const copyCode = async () => {
   font-family: var(--vp-font-family-mono);
 }
 
+/* highlight.js 样式支持 */
+.demo-source-code .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--vp-c-text-1);
+}
+
+/* 确保代码块背景正确 */
+.demo-source-code pre.hljs {
+  background: var(--vp-c-bg-soft) !important;
+  border-radius: 4px;
+}
+
 /* 深色模式适配 */
 .dark .demo-container {
   border-color: var(--vp-c-border);

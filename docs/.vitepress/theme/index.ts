@@ -1,6 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
 import DemoContainer from '../components/DemoContainer.vue'
 import type { Theme } from 'vitepress'
+import 'highlight.js/styles/github-dark.css'
 
 export default {
   extends: DefaultTheme,

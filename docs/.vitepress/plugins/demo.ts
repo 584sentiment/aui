@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import MarkdownIt from 'markdown-it'
+import hljs from 'highlight.js'
 
 /**
  * 自定义 Demo 容器插件
@@ -12,7 +13,22 @@ import MarkdownIt from 'markdown-it'
  * 4. 生成带代码高亮的 source
  */
 export const createDemoPlugin = () => {
-  const md = new MarkdownIt()
+  const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+    highlight: function (str, lang) {
+      // 如果支持该语言，使用 highlight.js 高亮
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return `<pre class="hljs"><code class="language-${lang}">${hljs.highlight(str, { language: lang, ignoreIllegals: true }).value}</code></pre>`
+        } catch (__) {}
+      }
+
+      // 否则返回转义的代码
+      return `<pre class="hljs"><code class="language-${lang || 'text'}">${md.utils.escapeHtml(str)}</code></pre>`
+    }
+  })
 
   return {
     validate(params) {
