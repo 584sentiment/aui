@@ -12,29 +12,25 @@
 
 ## 安装
 
-\`\`\`bash
+```bash
 pnpm add lucide-vue-next
-\`\`\`
+```
 
 ## 基础用法
 
-在组件中导入图标：
+**导入图标：**
 
-\`\`\`typescript
+```typescript
 import { Search, Settings, User, Bell } from 'lucide-vue-next'
-\`\`\`
+```
 
-在模板中使用：
+**在模板中使用：**
 
-\`\`\`vue
-<template>
-  <div class="flex gap-4">
-    <Search />
-    <Settings :size="32" color="#3b82f6" />
-    <User :stroke-width="3" />
-  </div>
-</template>
-\`\`\`
+```vue
+<Search />
+<Settings :size="32" color="#3b82f6" />
+<User :stroke-width="3" />
+```
 
 ## API
 
