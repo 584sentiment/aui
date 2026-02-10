@@ -23,6 +23,15 @@ const decodedSource = computed(() => {
   }
 })
 
+// 解码高亮的 HTML 代码
+const decodedSourceHtml = computed(() => {
+  try {
+    return decodeURIComponent(props.source)
+  } catch {
+    return props.source
+  }
+})
+
 // 解码描述文字
 const decodedDescription = computed(() => {
   try {
@@ -62,7 +71,7 @@ const copyCode = async () => {
 
     <!-- Demo 预览区域 -->
     <div class="demo-preview-wrapper">
-      <div class="demo-preview" :class="{ 'with-padding': !showCode }">
+      <div class="demo-preview">
         <slot name="source" />
       </div>
 
@@ -133,7 +142,7 @@ const copyCode = async () => {
 
     <!-- 源代码显示区域 -->
     <div v-if="showCode" class="demo-source">
-      <pre class="demo-source-code"><code v-html="source"></code></pre>
+      <pre class="demo-source-code" v-html="decodedSourceHtml"></pre>
     </div>
   </div>
 </template>
@@ -161,11 +170,6 @@ const copyCode = async () => {
 }
 
 .demo-preview {
-  padding: 0;
-  transition: padding 0.3s ease;
-}
-
-.demo-preview.with-padding {
   padding: 24px;
 }
 
@@ -220,11 +224,28 @@ const copyCode = async () => {
   overflow-x: auto;
   font-size: 13px;
   line-height: 1.6;
+  background: transparent;
 }
 
+/* markdown-it 生成的代码高亮样式 */
 .demo-source-code code {
   font-family: var(--vp-font-family-mono);
   color: var(--vp-c-text-1);
+  background: transparent !important;
+}
+
+/* 确保代码块内的所有元素都有正确的样式 */
+.demo-source-code pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* 支持 VitePress 的代码高亮类 */
+.demo-source-code .language-vue,
+.demo-source-code .language-ts,
+.demo-source-code .language-js {
+  font-family: var(--vp-font-family-mono);
 }
 
 /* 深色模式适配 */
@@ -246,7 +267,7 @@ const copyCode = async () => {
 
 /* 响应式适配 */
 @media (max-width: 768px) {
-  .demo-preview.with-padding {
+  .demo-preview {
     padding: 16px;
   }
 
