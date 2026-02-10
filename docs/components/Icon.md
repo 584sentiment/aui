@@ -18,17 +18,40 @@ pnpm add lucide-vue-next
 
 ## 基础用法
 
-:::demo 基础图标用法
+在组件中导入图标：
 
-icon/basic
+\`\`\`typescript
+import { Search, Settings, User, Bell } from 'lucide-vue-next'
+\`\`\`
 
-:::
+在模板中使用：
+
+\`\`\`vue
+<template>
+  <div class="flex gap-4">
+    <Search />
+    <Settings :size="32" color="#3b82f6" />
+    <User :stroke-width="3" />
+  </div>
+</template>
+\`\`\`
+
+## API
+
+### Props
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| size | number | 24 | 图标大小（像素） |
+| color | string | currentColor | 图标颜色 |
+| strokeWidth | number | 2 | 描边宽度 |
+| absoluteStrokeWidth | boolean | false | 绝对描边宽度 |
 
 ## 常用图标
 
 ### 导航图标
 - `ChevronDown` - 下箭头
-- `ChevronUp` - 上箭头  
+- `ChevronUp` - 上箭头
 - `ChevronLeft` - 左箭头
 - `ChevronRight` - 右箭头
 - `Menu` - 菜单
