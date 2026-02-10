@@ -18,19 +18,11 @@ pnpm add lucide-vue-next
 
 ## 基础用法
 
-**导入图标：**
+:::demo 基础图标用法
 
-```typescript
-import { Search, Settings, User, Bell } from 'lucide-vue-next'
-```
+icon/basic
 
-**在模板中使用：**
-
-```vue
-<Search />
-<Settings :size="32" color="#3b82f6" />
-<User :stroke-width="3" />
-```
+:::
 
 ## API
 
