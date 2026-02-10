@@ -18,10 +18,28 @@ export const createDemoPlugin = () => {
     linkify: true,
     typographer: true,
     highlight: function (str, lang) {
+      // 语言映射：Vue 文件使用 html 高亮
+      const languageMap: { [key: string]: string } = {
+        vue: 'html',
+        'vue-html': 'html',
+        md: 'markdown',
+        ts: 'typescript',
+        js: 'javascript',
+        jsx: 'javascript',
+        tsx: 'typescript',
+      }
+
+      // 获取实际要使用的语言
+      const actualLang = languageMap[lang] || lang
+
       // 如果支持该语言，使用 highlight.js 高亮
-      if (lang && hljs.getLanguage(lang)) {
+      if (actualLang && hljs.getLanguage(actualLang)) {
         try {
-          return `<pre class="hljs"><code class="language-${lang}">${hljs.highlight(str, { language: lang, ignoreIllegals: true }).value}</code></pre>`
+          const highlighted = hljs.highlight(str, {
+            language: actualLang,
+            ignoreIllegals: true
+          }).value
+          return `<pre class="hljs"><code class="language-${lang}">${highlighted}</code></pre>`
         } catch (__) {}
       }
 
