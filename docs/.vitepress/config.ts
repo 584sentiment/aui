@@ -39,6 +39,7 @@ export default defineConfig({
       {
         text: '基础组件',
         items: [
+          { text: 'Icon 图标', link: '/components/Icon' },
           { text: 'Button 按钮', link: '/components/Button' },
           { text: 'Input 输入框', link: '/components/Input' },
           { text: 'Switch 开关', link: '/components/Switch' }
