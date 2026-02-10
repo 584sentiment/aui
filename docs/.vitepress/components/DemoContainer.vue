@@ -75,10 +75,13 @@ const copyCode = async () => {
         <slot name="source" />
       </div>
 
+      <!-- 分隔线 -->
+      <div class="demo-divider" />
+
       <!-- 操作按钮栏 -->
       <div class="demo-actions">
         <button
-          class="demo-action-btn"
+          class="demo-action-btn icon-only"
           :class="{ 'copied': copySuccess }"
           @click="copyCode"
           title="复制代码"
@@ -86,8 +89,8 @@ const copyCode = async () => {
           <svg
             v-if="!copySuccess"
             xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -101,8 +104,8 @@ const copyCode = async () => {
           <svg
             v-else
             xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -112,18 +115,18 @@ const copyCode = async () => {
           >
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
-          <span class="btn-text">{{ copySuccess ? '已复制' : '复制代码' }}</span>
         </button>
 
         <button
-          class="demo-action-btn"
+          v-show="!showCode"
+          class="demo-action-btn icon-only"
           @click="toggleCode"
-          :title="showCode ? '隐藏源代码' : '查看源代码'"
+          title="查看源代码"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -131,19 +134,43 @@ const copyCode = async () => {
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <polyline v-if="!showCode" points="16 18 22 12 16 6"></polyline>
-            <polyline v-if="!showCode" points="8 6 2 12 8 18"></polyline>
-            <polyline v-else points="18 15 12 9 6 15"></polyline>
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
-          <span class="btn-text">{{ showCode ? '隐藏代码' : '查看代码' }}</span>
         </button>
       </div>
     </div>
 
     <!-- 源代码显示区域 -->
-    <div v-if="showCode" class="demo-source">
-      <pre class="demo-source-code" v-html="decodedSourceHtml"></pre>
-    </div>
+    <Transition name="code-fade">
+      <div v-if="showCode" class="demo-source">
+        <pre class="demo-source-code" v-html="decodedSourceHtml"></pre>
+
+        <!-- 收起按钮 - sticky 定位，粘在代码区域底部 -->
+        <div class="demo-float-control">
+          <button
+            class="demo-collapse-btn"
+            @click="toggleCode"
+            title="收起代码"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+            <span>收起代码</span>
+          </button>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -152,70 +179,90 @@ const copyCode = async () => {
   margin: 16px 0;
   border: 1px solid var(--vp-c-border);
   border-radius: 8px;
-  overflow: hidden;
   background: var(--vp-c-bg);
 }
 
 .demo-description {
-  padding: 16px;
-  border-bottom: 1px solid var(--vp-c-border);
+  padding: 8px 16px;
   background: var(--vp-c-bg-soft);
   font-size: 14px;
   line-height: 1.6;
   color: var(--vp-c-text-1);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .demo-preview-wrapper {
-  border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .demo-preview {
   padding: 24px;
 }
 
+.demo-divider {
+  height: 1px;
+  background: var(--vp-c-divider);
+  margin: 0;
+}
+
 .demo-actions {
   display: flex;
   gap: 8px;
-  padding: 12px 16px;
-  background: var(--vp-c-bg-soft);
-  border-top: 1px solid var(--vp-c-divider);
+  padding: 8px 16px;
+  background: var(--vp-c-bg);
+  height: 40px;
+  align-items: center;
   justify-content: flex-end;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .demo-action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--vp-c-text-1);
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-border);
-  border-radius: 4px;
+  justify-content: center;
+  padding: 6px;
+  color: var(--vp-c-text-2);
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+.demo-action-btn.icon-only {
+  width: 32px;
+  height: 32px;
 }
 
 .demo-action-btn:hover {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
 }
 
 .demo-action-btn.copied {
   color: var(--vp-c-success-1);
-  border-color: var(--vp-c-success-1);
-  background: var(--vp-c-success-soft);
 }
 
 .demo-action-btn svg {
   flex-shrink: 0;
 }
 
+/* 过渡动画 */
+.code-fade-enter-active,
+.code-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.code-fade-enter-from,
+.code-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* 源代码区域 */
 .demo-source {
   border-top: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg-soft);
+  background: var(--vp-c-bg);
+  position: relative;
 }
 
 .demo-source-code {
@@ -225,6 +272,50 @@ const copyCode = async () => {
   font-size: 13px;
   line-height: 1.6;
   background: transparent;
+}
+
+/* 收起按钮 - sticky 定位 */
+.demo-float-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--vp-c-divider);
+  height: 44px;
+  box-sizing: border-box;
+  background: var(--vp-c-bg);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  margin-top: -1px;
+}
+
+.demo-collapse-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.demo-collapse-btn span {
+  margin-left: 10px;
+}
+
+.demo-collapse-btn:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.demo-collapse-btn svg {
+  flex-shrink: 0;
 }
 
 /* markdown-it 生成的代码高亮样式 */
@@ -260,8 +351,7 @@ const copyCode = async () => {
 
 /* 确保代码块背景正确 */
 .demo-source-code pre.hljs {
-  background: var(--vp-c-bg-soft) !important;
-  border-radius: 4px;
+  background: transparent !important;
 }
 
 /* 深色模式适配 */
@@ -273,11 +363,12 @@ const copyCode = async () => {
   background: var(--vp-c-bg-soft);
 }
 
-.dark .demo-actions {
-  background: var(--vp-c-bg-soft);
+/* 深色模式适配 */
+.dark .demo-container {
+  border-color: var(--vp-c-border);
 }
 
-.dark .demo-source {
+.dark .demo-description {
   background: var(--vp-c-bg-soft);
 }
 
@@ -288,17 +379,26 @@ const copyCode = async () => {
   }
 
   .demo-actions {
-    flex-direction: column;
-    gap: 8px;
+    padding: 8px 12px;
   }
 
-  .demo-action-btn {
-    width: 100%;
-    justify-content: center;
+  .demo-action-btn.icon-only {
+    width: 28px;
+    height: 28px;
   }
 
-  .btn-text {
-    display: inline;
+  .demo-action-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .demo-collapse-btn {
+    font-size: 13px;
+  }
+
+  .demo-collapse-btn svg {
+    width: 14px;
+    height: 14px;
   }
 }
 </style>

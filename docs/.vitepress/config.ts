@@ -25,8 +25,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/getting-started' },
-      { text: '组件', link: '/components/Button' },
-      { text: '在线演示', link: '/interactive-demo.html' }
+      { text: '组件', link: '/components/Button' }
     ],
     sidebar: [
       {
