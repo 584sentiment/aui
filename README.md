@@ -1,4 +1,4 @@
-# @job-ai/components
+# full-aui
 
 Job-Ai 组件库 - 基于 Vue 3 和 Tailwind CSS 的现代化组件库。
 
@@ -17,14 +17,15 @@ Job-Ai 组件库 - 基于 Vue 3 和 Tailwind CSS 的现代化组件库。
 ## 安装
 
 ```bash
-npm install @job-ai/components
+npm install full-aui
 ```
 
 ## 快速开始
 
 ```vue
 <script setup>
-import { Button, Input, Modal } from '@job-ai/components'
+import { Button, Input, Modal } from 'full-aui'
+import 'full-aui/style.css'
 </script>
 
 <template>
