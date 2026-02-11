@@ -6,6 +6,7 @@ import path from 'path'
 export default defineConfig({
   title: 'full-aui',
   description: 'Job-Ai 组件库文档',
+  base: '/aui/',
   cleanUrls: true,
   theme: path.resolve(__dirname, 'theme'),
   ignoreDeadLinks: true,  // 忽略死链检查
@@ -73,7 +74,7 @@ export default defineConfig({
       }
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/job-ai/components' }
+      { icon: 'github', link: 'https://github.com/584sentiment/aui' }
     ]
   }
 })
