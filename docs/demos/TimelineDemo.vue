@@ -29,8 +29,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Timeline } from '@job-ai/components'
-import type { TimelineItem } from '@job-ai/components'
+import { Timeline } from 'full-aui'
+import type { TimelineItem } from 'full-aui'
 
 const currentTime = ref('')
 

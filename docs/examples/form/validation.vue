@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Form, FormField, Input, Button } from '@job-ai/components'
+import { Form, FormField, Input, Button } from 'full-aui'
 
 const formData = ref({
   username: '',

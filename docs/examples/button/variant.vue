@@ -1,5 +1,5 @@
 <script setup>
-import { Button } from '@job-ai/components'
+import { Button } from 'full-aui'
 </script>
 
 <template>

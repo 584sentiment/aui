@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Tabs } from '@job-ai/components'
+import { Tabs } from 'full-aui'
 
 const activeTab = ref('tab1')
 const tabs = [

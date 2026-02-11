@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Tabs, TabPanel } from '@job-ai/components'
+import { Tabs, TabPanel } from 'full-aui'
 
 const activeTab1 = ref('tab1')
 const activeTab2 = ref('home')

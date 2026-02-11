@@ -1,5 +1,5 @@
 <script setup>
-import { Timeline } from '@job-ai/components'
+import { Timeline } from 'full-aui'
 
 const items = [
   {

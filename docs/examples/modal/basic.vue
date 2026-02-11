@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Modal, Button } from '@job-ai/components'
+import { Modal, Button } from 'full-aui'
 
 const isOpen = ref(false)
 

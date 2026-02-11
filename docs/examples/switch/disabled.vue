@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Switch } from '@job-ai/components'
+import { Switch } from 'full-aui'
 
 const value1 = ref(false)
 const value2 = ref(true)

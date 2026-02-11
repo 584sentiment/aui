@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { DatePicker } from '@job-ai/components'
+import { DatePicker } from 'full-aui'
 
 const date = ref(new Date())
 </script>

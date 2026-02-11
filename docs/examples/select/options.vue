@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Select } from '@job-ai/components'
+import { Select } from 'full-aui'
 
 const fruit = ref('')
 const fruits = [

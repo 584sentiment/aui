@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Switch } from '@job-ai/components'
+import { Switch } from 'full-aui'
 
 const enabled = ref(false)
 </script>

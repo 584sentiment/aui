@@ -4,7 +4,7 @@ import { createDemoPlugin } from './plugins/demo'
 import path from 'path'
 
 export default defineConfig({
-  title: '@job-ai/components',
+  title: 'full-aui',
   description: 'Job-Ai 组件库文档',
   cleanUrls: true,
   theme: path.resolve(__dirname, 'theme'),
@@ -18,7 +18,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@job-ai/components': path.resolve(__dirname, '../../src')
+        'full-aui': path.resolve(__dirname, '../../src')
       }
     }
   },

@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Input } from '@job-ai/components'
+import { Input } from 'full-aui'
 
 const text1 = ref('')
 const text2 = ref('')

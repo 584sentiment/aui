@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: "@job-ai/components"
+  name: "full-aui"
   text: "Job-Ai 组件库"
   tagline: "基于 Vue 3 和 Tailwind CSS 的现代化组件库"
   actions:
@@ -34,13 +34,13 @@ features:
 
 ```bash
 # npm
-npm install @job-ai/components
+npm install full-aui
 
 # pnpm
-pnpm add @job-ai/components
+pnpm add full-aui
 
 # yarn
-yarn add @job-ai/components
+yarn add full-aui
 ```
 
 ### 引入样式
@@ -48,7 +48,7 @@ yarn add @job-ai/components
 在主入口文件中引入样式：
 
 ```javascript
-import '@job-ai/components/style.css'
+import 'full-aui/style.css'
 ```
 
 ### 使用组件
@@ -57,7 +57,7 @@ import '@job-ai/components/style.css'
 
 ```vue
 <script setup>
-import { Button, Input, Modal } from '@job-ai/components'
+import { Button, Input, Modal } from 'full-aui'
 </script>
 
 <template>
@@ -71,8 +71,8 @@ import { Button, Input, Modal } from '@job-ai/components'
 
 ```javascript
 import { createApp } from 'vue'
-import JobAiComponents from '@job-ai/components'
-import '@job-ai/components/style.css'
+import JobAiComponents from 'full-aui'
+import 'full-aui/style.css'
 
 const app = createApp(App)
 app.use(JobAiComponents)
@@ -87,7 +87,7 @@ app.use(JobAiComponents)
 export default {
   content: [
     "./src/**/*.{vue,js,ts}",
-    "./node_modules/@job-ai/components/**/*.{vue,js,ts}"
+    "./node_modules/full-aui/**/*.{vue,js,ts}"
   ]
 }
 ```

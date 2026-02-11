@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Modal, Button } from '@job-ai/components'
+import { Modal, Button } from 'full-aui'
 
 const showBasic = ref(false)
 const showConfirm = ref(false)

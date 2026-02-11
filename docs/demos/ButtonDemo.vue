@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Button } from '@job-ai/components'
+import { Button } from 'full-aui'
 
 const loading = ref(false)
 const count = ref(0)

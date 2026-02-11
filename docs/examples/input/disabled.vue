@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+import { Input } from 'full-aui'
 
 const disabledValue = ref('禁用的内容')
 const readonlyValue = ref('只读的内容')

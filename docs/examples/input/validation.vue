@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+import { Input } from 'full-aui'
 
 const email = ref('')
 const emailError = ref('')

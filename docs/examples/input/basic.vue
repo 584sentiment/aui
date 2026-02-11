@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Input } from '@job-ai/components'
+import { Input } from 'full-aui'
 
 const username = ref('')
 </script>

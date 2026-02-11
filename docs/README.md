@@ -109,7 +109,7 @@ pnpm docs:build
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { Button } from '@job-ai/components'
+import { Button } from 'full-aui'
 
 const count = ref(0)
 </script>

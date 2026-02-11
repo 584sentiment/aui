@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Pagination } from '@job-ai/components'
+import { Pagination } from 'full-aui'
 
 const currentPage = ref(1)
 const currentPageWithTotal = ref(1)
