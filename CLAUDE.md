@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-`@job-ai/components` 是一个基于 Vue 3 + TypeScript + Tailwind CSS 的组件库，使用 Headless UI 提供无障碍访问支持，Vuelidate 处理表单验证。
+`full-aui` 是一个基于 Vue 3 + TypeScript + Tailwind CSS 的组件库，使用 Headless UI 提供无障碍访问支持，Vuelidate 处理表单验证。
 
 ## 开发命令
 
@@ -118,7 +118,7 @@ export type { ComponentNameProps } from './ComponentName/types'
 :::demo
 ```vue
 <script setup>
-import { ComponentName } from '@job-ai/components'
+import { ComponentName } from 'full-aui'
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 /**
- * @job-ai/components 主入口文件
+ * full-aui 主入口文件
  */
 import type { App } from 'vue'
 

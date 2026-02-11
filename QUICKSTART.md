@@ -112,7 +112,7 @@ pnpm add ../job-ai-components
 ```json
 {
   "dependencies": {
-    "@job-ai/components": "file:../job-ai-components"
+    "full-aui": "file:../job-ai-components"
   }
 }
 ```
@@ -121,8 +121,8 @@ pnpm add ../job-ai-components
 
 ```vue
 <script setup>
-import { Button, Input, Modal } from '@job-ai/components'
-import '@job-ai/components/style.css'
+import { Button, Input, Modal } from 'full-aui'
+import 'full-aui/style.css'
 </script>
 
 <template>

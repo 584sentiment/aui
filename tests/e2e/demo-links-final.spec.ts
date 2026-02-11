@@ -100,7 +100,7 @@ test.describe('文档演示链接测试 - 修复版', () => {
 
     await expect(page.getByText('如何在项目中使用')).toBeVisible()
     // 使用 .first() 选择第一个代码块（安装命令）
-    await expect(page.locator('pre code').first()).toContainText('npm install @job-ai/components')
+    await expect(page.locator('pre code').first()).toContainText('npm install full-aui')
   })
 
   test('返回文档链接应该可以工作', async () => {
