@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, type ComputedRef } from 'vue'
 import { TabPanel as HeadlessTabPanel } from '@headlessui/vue'
 
 interface TabPanelProps {

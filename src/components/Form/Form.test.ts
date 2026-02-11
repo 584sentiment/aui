@@ -40,8 +40,8 @@ describe('Form', () => {
   it('应该正确初始化验证规则', () => {
     const model = { username: '', email: '' }
     const rules = {
-      username: { type: 'required' },
-      email: [{ type: 'required' }, { type: 'email' }]
+      username: { type: 'required' as const },
+      email: [{ type: 'required' as const }, { type: 'email' as const }]
     }
 
     const wrapper = mount(Form, {

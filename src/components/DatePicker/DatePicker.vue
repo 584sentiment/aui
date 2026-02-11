@@ -193,7 +193,7 @@
               :class="[
                 'px-4 py-3 text-sm font-medium rounded-lg transition-all',
                 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
-                currentMonth.value === index
+                currentMonth === index
                   ? 'bg-primary text-white hover:bg-primaryHover shadow-md'
                   : 'text-text hover:bg-background hover:text-primary'
               ]"
@@ -257,7 +257,7 @@
               :class="[
                 'px-4 py-3 text-sm font-medium rounded-lg transition-all',
                 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
-                currentYear.value === year
+                currentYear === year
                   ? 'bg-primary text-white hover:bg-primaryHover shadow-md'
                   : 'text-text hover:bg-background hover:text-primary'
               ]"
@@ -311,6 +311,17 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
 })
 
 const emit = defineEmits<DatePickerEmits>()
+
+// 日期项类型定义
+interface CalendarDateItem {
+  key: string
+  day: number
+  date: Date
+  currentMonth: boolean
+  isToday: boolean
+  selected: boolean
+  disabled: boolean
+}
 
 const wrapperRef = ref<HTMLElement | null>(null)
 const datePickerId = ref(`date-picker-${Math.random().toString(36).substr(2, 9)}`)
@@ -465,7 +476,7 @@ const calendarDates = computed(() => {
 })
 
 // 日期样式
-const dateClasses = (date: ReturnType<typeof calendarDates.value>[0]) => {
+const dateClasses = (date: CalendarDateItem) => {
   const classes = [
     'relative h-10 w-10 rounded-lg text-sm font-medium transition-all duration-200',
     'flex items-center justify-center',
@@ -524,7 +535,7 @@ const nextMonth = () => {
   }
 }
 
-const selectDate = (date: ReturnType<typeof calendarDates.value>[0]) => {
+const selectDate = (date: CalendarDateItem) => {
   if (!date.disabled && date.currentMonth) {
     emit('update:modelValue', date.date)
     emit('change', date.date)

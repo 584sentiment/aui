@@ -552,8 +552,8 @@ const handleModalConfirm = () => {
   modalOpen.value = false
 }
 
-const handlePageChange = (page: number, size: number) => {
-  console.log('Page changed:', page, size)
+const handlePageChange = (page: number, pageSize?: number) => {
+  console.log('Page changed:', page, pageSize)
 }
 
 const handleSubmit = () => {
