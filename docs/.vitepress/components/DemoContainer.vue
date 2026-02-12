@@ -263,6 +263,8 @@ const copyCode = async () => {
   border-top: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
   position: relative;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .demo-source-code {

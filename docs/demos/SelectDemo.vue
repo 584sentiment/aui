@@ -16,6 +16,17 @@
       />
     </div>
 
+    <h3>带错误提示</h3>
+    <div class="demo-section">
+      <Select
+        v-model="selectedCountry"
+        :options="countries"
+        label="选择国家（必选）"
+        placeholder="请选择国家"
+        :error="countryError"
+      />
+    </div>
+
     <h3>禁用状态</h3>
     <div class="demo-section">
       <Select
@@ -41,19 +52,21 @@
     <div class="demo-section">
       <p>水果: {{ fruit || '未选择' }}</p>
       <p>城市: {{ city || '未选择' }}</p>
+      <p>国家: {{ selectedCountry || '未选择' }}</p>
       <p>爱好: {{ multiSelect.join(', ') || '未选择' }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Select } from 'full-aui'
 
 const fruit = ref('')
 const city = ref('')
 const disabled = ref('')
 const multiSelect = ref<string[]>([])
+const selectedCountry = ref('')
 
 const fruits = [
   { label: '苹果', value: 'apple' },
@@ -69,6 +82,13 @@ const cities = [
   { label: '深圳', value: 'shenzhen' }
 ]
 
+const countries = [
+  { label: '中国', value: 'china' },
+  { label: '美国', value: 'usa' },
+  { label: '日本', value: 'japan' },
+  { label: '英国', value: 'uk' }
+]
+
 const options = [
   { label: '选项1', value: '1' },
   { label: '选项2', value: '2' }
@@ -81,6 +101,13 @@ const hobbies = [
   { label: '旅行', value: 'travel' },
   { label: '游戏', value: 'gaming' }
 ]
+
+const countryError = computed(() => {
+  if (!selectedCountry.value) {
+    return '请选择一个国家'
+  }
+  return ''
+})
 </script>
 
 <style scoped>
