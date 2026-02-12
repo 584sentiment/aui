@@ -30,7 +30,7 @@
 
   /* 输入框基础样式 */
   .input-base {
-    @apply w-full px-4 py-2.5 rounded-lg border border-border bg-surface text-text placeholder-text-light transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-background disabled:cursor-not-allowed disabled:opacity-60;
-    border-width: 1.5px;
+    @apply w-full px-4 py-2.5 rounded-lg bg-surface text-text placeholder-text-light transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:bg-background disabled:cursor-not-allowed disabled:opacity-60;
+    border: 1.5px solid #E2E8F0;
   }
 }
