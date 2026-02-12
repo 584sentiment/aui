@@ -130,7 +130,33 @@ import { ComponentName } from 'full-aui'
 
 ### 文档位置
 - 组件文档: `docs/components/ComponentName.md`
-- Demo 文件: `docs/demos/ComponentNameDemo.vue`
+- Demo 文件: `docs/examples/componentName/xxx.vue`
+- 更新日志: `docs/changelog.md` 和项目根目录 `CHANGELOG.md`
+
+### 🚨 发布前必做
+
+**发布组件或版本前必须完成以下步骤**：
+
+1. **更新更新日志**
+   - 在 `docs/changelog.md` 添加新版本记录
+   - 在项目根目录 `CHANGELOG.md` 添加相同的版本记录
+   - 格式：
+     ```markdown
+     ## [版本号] - YYYY-MM-DD
+
+     ### 组件名称
+     - **feat**: 新增 xxx 功能
+     - **fix**: 修复 xxx 问题
+     - **docs**: 更新 xxx 文档
+     ```
+
+2. **更新组件文档**
+   - 确保所有新增/修改的属性/方法/事件/插槽都有文档说明
+   - 添加对应的使用示例到 `docs/examples/componentName/`
+
+3. **提交更改**
+   - 先提交更新日志和文档更新
+   - 再进行版本发布
 
 ## Headless UI 集成
 
