@@ -85,6 +85,7 @@ const labelStyle = computed(() => {
   margin-bottom: 0.5rem;
   font-weight: 500;
   color: #1e293b;
+  text-align: left;
 }
 
 .form-field-left {
