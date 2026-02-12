@@ -127,7 +127,7 @@ const sizeClasses = computed(() => {
 
 const selectClasses = computed(() => {
   const base =
-    'relative w-full cursor-default rounded-lg border border-border bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all duration-200';
+    'relative w-full cursor-default rounded-lg border border-border bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all duration-200 border-[1.5px]';
   const errorClass = props.error ? 'border-danger focus:ring-danger' : '';
   const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : '';
 
