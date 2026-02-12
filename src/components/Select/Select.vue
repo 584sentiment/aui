@@ -130,11 +130,13 @@ const sizeClasses = computed(() => {
 
 const selectClasses = computed(() => {
   const base =
-    'relative w-full cursor-default rounded-lg bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all duration-200';
-  const errorClass = props.error ? 'focus:ring-danger' : '';
+    'relative w-full cursor-default rounded-lg bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm transition-all duration-200';
+  const focusClass = props.error
+    ? 'focus:ring-danger'
+    : 'focus:border-transparent';
   const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : '';
 
-  return [base, sizeClasses.value, errorClass, disabledClass]
+  return [base, sizeClasses.value, focusClass, disabledClass]
     .filter(Boolean)
     .join(' ');
 });
