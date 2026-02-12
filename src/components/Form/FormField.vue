@@ -1,11 +1,6 @@
 <template>
   <div class="form-field" :class="fieldClasses">
-    <label
-      v-if="label"
-      :for="name"
-      :class="labelClasses"
-      :style="labelStyle"
-    >
+    <label v-if="label" :for="name" :class="labelClasses" :style="labelStyle">
       {{ label }}
       <span v-if="required" class="text-error ml-1">*</span>
     </label>
@@ -19,61 +14,61 @@
 </template>
 
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed } from 'vue';
 
 interface FormFieldProps {
-  label?: string
-  name?: string
-  required?: boolean
+  label?: string;
+  name?: string;
+  required?: boolean;
 }
 
 const props = withDefaults(defineProps<FormFieldProps>(), {
   name: '',
-  required: false
-})
+  required: false,
+});
 
 // 注入表单上下文
-const formContext = inject<any>('form', null)
-const validate = inject<any>('validate', null)
+const formContext = inject<any>('form', null);
+const validate = inject<any>('validate', null);
 
 // 计算错误消息
 const errorMessage = computed(() => {
-  if (!validate || !props.name) return ''
-  const errors = validate.value?.$errors || validate.$errors
-  if (!errors || !Array.isArray(errors)) return ''
-  const fieldError = errors.find((e: any) => e.$property === props.name)
-  return fieldError?.$message || ''
-})
+  if (!validate || !props.name) return '';
+  const errors = validate.value?.$errors || validate.$errors;
+  if (!errors || !Array.isArray(errors)) return '';
+  const fieldError = errors.find((e: any) => e.$property === props.name);
+  return fieldError?.$message || '';
+});
 
 // 计算样式类
 const fieldClasses = computed(() => {
-  const labelPosition = formContext?.labelPosition || 'top'
+  const labelPosition = formContext?.value?.labelPosition || 'top';
   return {
     [`form-field-${labelPosition}`]: true,
-    'form-field-has-error': !!errorMessage.value
-  }
-})
+    'form-field-has-error': !!errorMessage.value,
+  };
+});
 
 const labelWidth = computed(() => {
-  return formContext?.labelWidth || '120px'
-})
+  return formContext?.value?.labelWidth || '120px';
+});
 
 const labelClasses = computed(() => {
-  const labelPosition = formContext?.labelPosition || 'top'
+  const labelPosition = formContext?.value?.labelPosition || 'top';
   return {
     'form-label-left': labelPosition === 'left',
     'form-label-top': labelPosition === 'top',
-    'form-label-right': labelPosition === 'right'
-  }
-})
+    'form-label-right': labelPosition === 'right',
+  };
+});
 
 const labelStyle = computed(() => {
-  const labelPosition = formContext?.labelPosition || 'top'
+  const labelPosition = formContext?.value?.labelPosition || 'top';
   if (labelPosition === 'left' || labelPosition === 'right') {
-    return { width: labelWidth.value }
+    return { width: labelWidth.value };
   }
-  return {}
-})
+  return {};
+});
 </script>
 
 <style scoped>
