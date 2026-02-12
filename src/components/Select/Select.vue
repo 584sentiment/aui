@@ -1,23 +1,45 @@
 <template>
   <div class="select-wrapper">
-    <label v-if="label" :for="selectId" class="block text-sm font-medium text-text mb-1">
+    <label
+      v-if="label"
+      :for="selectId"
+      class="block text-sm font-medium text-text mb-1"
+    >
       {{ label }}
     </label>
     <Listbox
       :model-value="modelValue"
       @update:model-value="handleChange"
       :disabled="disabled"
+      v-slot="{ open }"
     >
-      <div class="relative">
-        <ListboxButton
-          :class="selectClasses"
-        >
+      <Float
+        placement="bottom-start"
+        portal
+        :offset="4"
+        :flip="20"
+        floating-as="template"
+        adaptive-width
+      >
+        <ListboxButton :class="selectClasses">
           <span class="block truncate">
             {{ displayLabel }}
           </span>
-          <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-            <svg class="h-5 w-5 text-text-light" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4" />
+          <span
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+          >
+            <svg
+              class="h-5 w-5 text-text-light"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M6 8l4 4 4-4"
+              />
             </svg>
           </span>
         </ListboxButton>
@@ -60,7 +82,7 @@
             </ListboxOption>
           </ListboxOptions>
         </Transition>
-      </div>
+      </Float>
     </Listbox>
     <p v-if="error" class="mt-1 text-sm text-danger">
       {{ error }}
@@ -69,48 +91,57 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
-import type { SelectProps, SelectEmits, SelectOption } from './types'
+import { computed, ref } from 'vue';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from '@headlessui/vue';
+import { Float } from '@headlessui-float/vue';
+import type { SelectProps, SelectEmits, SelectOption } from './types';
 
 const props = withDefaults(defineProps<SelectProps>(), {
   placeholder: '请选择',
   disabled: false,
-  size: 'md'
-})
+  size: 'md',
+});
 
-const emit = defineEmits<SelectEmits>()
+const emit = defineEmits<SelectEmits>();
 
-const selectId = ref(`select-${Math.random().toString(36).substr(2, 9)}`)
+const selectId = ref(`select-${Math.random().toString(36).substr(2, 9)}`);
 
 const displayLabel = computed(() => {
-  const option = props.options.find(opt => opt.value === props.modelValue)
-  return option?.label || props.placeholder
-})
+  const option = props.options.find(opt => opt.value === props.modelValue);
+  return option?.label || props.placeholder;
+});
 
 const sizeClasses = computed(() => {
   const sizeMap = {
     sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2.5 text-base',
-    lg: 'px-5 py-3 text-lg'
-  }
-  return sizeMap[props.size]
-})
+    lg: 'px-5 py-3 text-lg',
+  };
+  return sizeMap[props.size];
+});
 
 const selectClasses = computed(() => {
-  const base = 'relative w-full cursor-default rounded-lg border border-border bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all duration-200'
-  const errorClass = props.error ? 'border-danger focus:ring-danger' : ''
-  const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : ''
+  const base =
+    'relative w-full cursor-default rounded-lg border border-border bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all duration-200';
+  const errorClass = props.error ? 'border-danger focus:ring-danger' : '';
+  const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : '';
 
-  return [base, sizeClasses.value, errorClass, disabledClass].filter(Boolean).join(' ')
-})
+  return [base, sizeClasses.value, errorClass, disabledClass]
+    .filter(Boolean)
+    .join(' ');
+});
 
 const optionsClasses = computed(() => {
-  return 'absolute z-dropdown mt-1 max-h-60 w-full overflow-auto rounded-lg bg-surface py-1 shadow-medium text-base focus:outline-none sm:text-sm'
-})
+  return 'z-dropdown max-h-60 w-full overflow-auto rounded-lg bg-surface py-1 shadow-medium text-base focus:outline-none sm:text-sm';
+});
 
 const handleChange = (value: string | number) => {
-  emit('update:modelValue', value)
-  emit('change', value)
-}
+  emit('update:modelValue', value);
+  emit('change', value);
+};
 </script>
