@@ -43,11 +43,15 @@ export default {
         'strong': '0 8px 24px rgba(0, 0, 0, 0.12)'
       },
       zIndex: {
-        'base': '0',
-        'dropdown': '100',
-        'popover': '125',
-        'modal': '150',
-        'toast': '200'
+        // 与 src/design-system/tokens.ts 中的 zIndex 定义保持一致
+        // 层级参考主流 UI 库（Element Plus、Ant Design、shadcn/ui）
+        'dropdown': '2000',      // 下拉菜单
+        'sticky': '2010',         // 吸顶元素
+        'fixed': '2020',          // 固定定位
+        'modal-backdrop': '3000', // 模态框遮罩
+        'modal': '3010',          // 模态框内容
+        'popover': '4000',        // 气泡卡片
+        'tooltip': '5000'         // 提示框（最高层级）
       }
     }
   },

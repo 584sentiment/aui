@@ -2,12 +2,12 @@
   <Dialog :open="modelValue" @close="handleClose" class="relative z-modal">
     <!-- Backdrop -->
     <div
-      class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+      class="fixed inset-0 z-modal-backdrop bg-black/50 backdrop-blur-sm transition-opacity"
       aria-hidden="true"
     />
 
     <!-- Full screen container to center the modal -->
-    <div class="fixed inset-0 z-10 overflow-y-auto">
+    <div class="fixed inset-0 z-modal overflow-y-auto">
       <div class="flex min-h-full items-center justify-center p-4 text-center">
         <DialogPanel
           :class="modalClasses"

@@ -35,9 +35,13 @@ test.describe('组件修复验证', () => {
     const dropdownClasses = await dropdown.getAttribute('class') || ''
     expect(dropdownClasses).toContain('z-dropdown')
 
-    // 验证下拉面板的定位是 absolute
+    // 验证下拉面板的定位是 fixed (使用 Teleport + Floating UI)
     const position = await dropdown.evaluate(el => window.getComputedStyle(el).position)
-    expect(position).toBe('absolute')
+    expect(position).toBe('fixed')
+
+    // 验证下拉面板在 body 下 (Teleport)
+    const isInBody = await dropdown.evaluate(el => el.parentElement === document.body)
+    expect(isInBody).toBe(true)
   })
 
   test('Tabs 切换标签时内容应该跟随变化', async ({ page }) => {
@@ -97,7 +101,7 @@ test.describe('组件修复验证', () => {
     await expect(contentArea).toContainText('当前:')
   })
 
-  test('Select 下拉面板应该有正确的阴影和圆角', async ({ page }) => {
+  test('Select 下拉面板应该有正确的阴影、圆角和宽度', async ({ page }) => {
     await page.goto('http://localhost:3000')
     await page.waitForLoadState('networkidle')
 
@@ -114,5 +118,12 @@ test.describe('组件修复验证', () => {
     // 验证阴影
     const boxShadow = await dropdown.evaluate(el => window.getComputedStyle(el).boxShadow)
     expect(boxShadow).not.toBe('none')
+
+    // 验证宽度与按钮一致
+    const buttonWidth = await selectButton.evaluate(el => el.getBoundingClientRect().width)
+    const dropdownWidth = await dropdown.evaluate(el => el.getBoundingClientRect().width)
+
+    // 允许 1px 的误差
+    expect(Math.abs(buttonWidth - dropdownWidth)).toBeLessThanOrEqual(1)
   })
 })

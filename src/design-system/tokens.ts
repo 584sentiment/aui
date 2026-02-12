@@ -68,12 +68,28 @@ export const transitions = {
   slow: '300ms'
 } as const
 
+/**
+ * Z-index 层级规范
+ *
+ * 参考主流 UI 库的层级设计（Element Plus、Ant Design、shadcn/ui）
+ *
+ * 使用说明：
+ * - dropdown: 下拉菜单、Select、Autocomplete 等
+ * - sticky: 吸顶容器
+ * - fixed: 固定定位元素（如页脚固定按钮）
+ * - modalBackdrop: 模态框遮罩
+ * - modal: 模态框内容
+ * - popover: 气泡卡片、Popconfirm 等
+ * - tooltip: 提示框（最高层级）
+ *
+ * 注意：项目中有更高层级需求时，应在此范围内选择，而非超出范围
+ */
 export const zIndex = {
-  dropdown: 1000,
-  sticky: 1020,
-  fixed: 1030,
-  modalBackdrop: 1040,
-  modal: 1050,
-  popover: 1060,
-  tooltip: 1070
+  dropdown: 2000,      // 下拉菜单（Select、DatePicker 等）
+  sticky: 2010,        // 吸顶元素
+  fixed: 2020,         // 固定定位
+  modalBackdrop: 3000, // 模态框遮罩
+  modal: 3010,         // 模态框内容
+  popover: 4000,       // 气泡卡片
+  tooltip: 5000        // 提示框（最高）
 } as const
