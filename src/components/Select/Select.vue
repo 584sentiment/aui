@@ -21,7 +21,10 @@
         floating-as="template"
         adaptive-width
       >
-        <ListboxButton :class="selectClasses">
+        <ListboxButton
+          :class="selectClasses"
+          :style="buttonStyle"
+        >
           <span class="block truncate">
             {{ displayLabel }}
           </span>
@@ -127,16 +130,20 @@ const sizeClasses = computed(() => {
 
 const selectClasses = computed(() => {
   const base =
-    'relative w-full cursor-default rounded-lg bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm transition-all duration-200';
-  const borderStyle = props.error
-    ? 'border-[1.5px] border-danger focus:border-transparent focus:ring-danger'
-    : 'border-[1.5px] border-[#E2E8F0] focus:border-transparent';
+    'relative w-full cursor-default rounded-lg bg-surface py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all duration-200';
+  const errorClass = props.error ? 'focus:ring-danger' : '';
   const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : '';
 
-  return [base, borderStyle, sizeClasses.value, disabledClass]
+  return [base, sizeClasses.value, errorClass, disabledClass]
     .filter(Boolean)
     .join(' ');
 });
+
+const buttonStyle = computed(() => ({
+  border: props.error
+    ? '1.5px solid #EF4444'
+    : '1.5px solid #E2E8F0'
+}));
 
 const optionsClasses = computed(() => {
   return 'z-dropdown max-h-60 w-full overflow-auto rounded-lg bg-surface py-1 shadow-medium text-base focus:outline-none sm:text-sm';
