@@ -141,11 +141,14 @@ const selectClasses = computed(() => {
     .join(' ');
 });
 
-const buttonStyle = computed(() => ({
-  border: props.error
-    ? '1.5px solid #EF4444'
-    : '1.5px solid #E2E8F0'
-}));
+const buttonStyle = computed(() => {
+  const borderColor = props.error && props.error.length > 0
+    ? '#EF4444'
+    : '#E2E8F0';
+  return {
+    border: '1.5px solid ' + borderColor
+  };
+});
 
 const optionsClasses = computed(() => {
   return 'z-dropdown max-h-60 w-full overflow-auto rounded-lg bg-surface py-1 shadow-medium text-base focus:outline-none sm:text-sm';
