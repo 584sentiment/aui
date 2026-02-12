@@ -4,6 +4,7 @@
       v-if="label"
       :for="name"
       :class="labelClasses"
+      :style="labelStyle"
     >
       {{ label }}
       <span v-if="required" class="text-error ml-1">*</span>
@@ -53,6 +54,10 @@ const fieldClasses = computed(() => {
   }
 })
 
+const labelWidth = computed(() => {
+  return formContext?.labelWidth || '120px'
+})
+
 const labelClasses = computed(() => {
   const labelPosition = formContext?.labelPosition || 'top'
   return {
@@ -60,6 +65,14 @@ const labelClasses = computed(() => {
     'form-label-top': labelPosition === 'top',
     'form-label-right': labelPosition === 'right'
   }
+})
+
+const labelStyle = computed(() => {
+  const labelPosition = formContext?.labelPosition || 'top'
+  if (labelPosition === 'left' || labelPosition === 'right') {
+    return { width: labelWidth.value }
+  }
+  return {}
 })
 </script>
 

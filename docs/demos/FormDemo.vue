@@ -29,6 +29,42 @@
         <pre>{{ JSON.stringify(submittedData, null, 2) }}</pre>
       </div>
     </div>
+
+    <h3>标签位置 (Top)</h3>
+    <div class="demo-section">
+      <Form @submit="handleSubmit" :model="formTop" label-position="top">
+        <FormField label="用户名" name="username">
+          <Input v-model="formTop.username" placeholder="标签在顶部" />
+        </FormField>
+        <FormField label="邮箱地址" name="email">
+          <Input v-model="formTop.email" placeholder="标签在顶部" />
+        </FormField>
+      </Form>
+    </div>
+
+    <h3>标签位置 (Left)</h3>
+    <div class="demo-section">
+      <Form @submit="handleSubmit" :model="formLeft" label-position="left" label-width="100px">
+        <FormField label="用户名" name="username">
+          <Input v-model="formLeft.username" placeholder="标签在左侧" />
+        </FormField>
+        <FormField label="邮箱地址" name="email">
+          <Input v-model="formLeft.email" placeholder="标签在左侧" />
+        </FormField>
+      </Form>
+    </div>
+
+    <h3>标签位置 (Right)</h3>
+    <div class="demo-section">
+      <Form @submit="handleSubmit" :model="formRight" label-position="right" label-width="100px">
+        <FormField label="用户名" name="username">
+          <Input v-model="formRight.username" placeholder="标签在右侧" />
+        </FormField>
+        <FormField label="邮箱地址" name="email">
+          <Input v-model="formRight.email" placeholder="标签在右侧" />
+        </FormField>
+      </Form>
+    </div>
   </div>
 </template>
 
@@ -41,6 +77,21 @@ const form = ref({
   username: '',
   email: '',
   password: ''
+})
+
+const formTop = ref({
+  username: '',
+  email: ''
+})
+
+const formLeft = ref({
+  username: '',
+  email: ''
+})
+
+const formRight = ref({
+  username: '',
+  email: ''
 })
 
 const submittedData = ref(null)

@@ -14,6 +14,14 @@ form/basic
 form/validation
 :::
 
+## 标签位置
+
+通过 `label-position` 属性可以设置表单域标签的位置，可选值为 `left`、`right` 或 `top`。
+
+:::demo 标签位置
+form/label-position
+:::
+
 ## API
 
 ### Props
