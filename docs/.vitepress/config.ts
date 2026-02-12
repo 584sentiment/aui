@@ -26,7 +26,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/getting-started' },
-      { text: '组件', link: '/components/Button' }
+      { text: '组件', link: '/components/Button' },
+      { text: '更新日志', link: '/changelog' }
     ],
     sidebar: [
       {
@@ -70,6 +71,12 @@ export default defineConfig({
         text: '数据展示',
         items: [
           { text: 'Timeline 时间轴', link: '/components/Timeline' }
+        ]
+      },
+      {
+        text: '关于',
+        items: [
+          { text: '更新日志', link: '/changelog' }
         ]
       }
     ],
